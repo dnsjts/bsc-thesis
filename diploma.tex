@@ -1,9 +1,9 @@
 \documentclass[11pt,a4paper,oneside]{report}             % Single-side
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 %\documentclass[11pt,a4paper,twoside,openright]{report}  % Duplex
 
 %\PassOptionsToPackage{chapternumber=Huordinal}{magyar.ldf}
-\usepackage{t1enc}
-\usepackage[latin2]{inputenc}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{enumerate}
@@ -24,12 +24,12 @@
 %--------------------------------------------------------------------------------------
 % Main variables
 %--------------------------------------------------------------------------------------
-\newcommand{\vikszerzo}{MÛzes ¡d·m Istv·n}
-\newcommand{\vikkonzulens}{dr.~FÈlegyh·zi M·rk}
-\newcommand{\vikcim}{Elektronikus terelık}
-\newcommand{\viktanszek}{H·lÛzati Rendszerek Ès Szolg·ltat·sok TanszÈk}
+\newcommand{\vikszerzo}{M√≥zes √Åd√°m Istv√°n}
+\newcommand{\vikkonzulens}{dr.~F√©legyh√°zi M√°rk}
+\newcommand{\vikcim}{Elektronikus terel√µk}
+\newcommand{\viktanszek}{H√°l√≥zati Rendszerek √©s Szolg√°ltat√°sok Tansz√©k}
 \newcommand{\vikdoktipus}{Szakdolgozat}
-\newcommand{\vikdepartmentr}{BÛdis-Szomor˙ Andr·s}
+\newcommand{\vikdepartmentr}{B√≥dis-Szomor√∫ Andr√°s}
 
 %--------------------------------------------------------------------------------------
 % Page layout setup
@@ -40,10 +40,10 @@
 % (like the ToC, the References, and the Chapter pages)remain in plane style
 
 \pagestyle{plain}
-%\setlength{\parindent}{0pt} % ·ttekinthetıbb, angol nyelv˚ dokumentumokban jellemzı
-%\setlength{\parskip}{8pt plus 3pt minus 3pt} % ·ttekinthetıbb, angol nyelv˚ dokumentumokban jellemzı
-\setlength{\parindent}{12pt} % magyar nyelv˚ dokumentumokban jellemzı
-\setlength{\parskip}{0pt}    % magyar nyelv˚ dokumentumokban jellemzı
+%\setlength{\parindent}{0pt} % √°ttekinthet√µbb, angol nyelv√ª dokumentumokban jellemz√µ
+%\setlength{\parskip}{8pt plus 3pt minus 3pt} % √°ttekinthet√µbb, angol nyelv√ª dokumentumokban jellemz√µ
+\setlength{\parindent}{12pt} % magyar nyelv√ª dokumentumokban jellemz√µ
+\setlength{\parskip}{0pt}    % magyar nyelv√ª dokumentumokban jellemz√µ
 
 \marginsize{35mm}{25mm}{15mm}{15mm} % anysize package
 \setcounter{secnumdepth}{0}
@@ -57,7 +57,7 @@
 %--------------------------------------------------------------------------------------
 \hypersetup{
     bookmarks=true,            % show bookmarks bar?
-    unicode=false,             % non-Latin characters in Acrobatís bookmarks
+    unicode=false,             % non-Latin characters in Acrobat¬ís bookmarks
     pdftitle={\vikcim},        % title
     pdfauthor={\vikszerzo},    % author
     pdfsubject={\vikdoktipus}, % subject of the document
@@ -110,17 +110,18 @@
 \author{\vikszerzo}
 \title{\viktitle}
 \includeonly{
-	guideline,%
-	project,%
-	titlepage,%
-	declaration,%
-	abstract,%
-	introduction,%
-	chapter1,%
-	chapter2,%
-	chapter3,%
-	acknowledgement,%
-	appendices,%
+	abstract,
+	acknowledgement,
+	appendices,
+	background,
+	chapter3,
+	declaration,
+	futureimprovements,
+	guideline,
+	introduction,
+	project,
+	summary,
+	titlepage,
 }
 %--------------------------------------------------------------------------------------
 %	Setup captions
@@ -151,14 +152,16 @@ aboveskip=10pt}
 \include{abstract}
 \include{introduction}
 \include{background}
+\include{guideline}
+\include{summary}
 \include{futureimprovements}
 \include{acknowledgement}
 
-%\listoffigures\addcontentsline{toc}{chapter}{¡br·k jegyzÈke}
-%\listoftables\addcontentsline{toc}{chapter}{T·bl·zatok jegyzÈke}
+%\listoffigures\addcontentsline{toc}{chapter}{√Åbr√°k jegyz√©ke}
+%\listoftables\addcontentsline{toc}{chapter}{T√°bl√°zatok jegyz√©ke}
 
 \bibliography{mybib}
-\addcontentsline{toc}{chapter}{IrodalomjegyzÈk}
+\addcontentsline{toc}{chapter}{Irodalomjegyz√©k}
 \bibliographystyle{plain}
 
 \include{appendices}
