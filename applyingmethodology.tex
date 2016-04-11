@@ -24,11 +24,79 @@ annak hatókörét. Erre szolgál a \emph{ALC\_CMS} szekció.
     \item{ALC\_CMS.5}
 \end{itemize}
 
-\subsubsection{Configuration Management}
+\subsubsection{Configuration Management - termék verziózása}
+Az EAL1 szint elérése ennél az alosztálynál egy egészen egyszerű feladatnak tűnik, hiszen csupán
+annyi a feladat, hogy a termék egy adott állapotát egy egyedi cimkével ellássuk, és mivel a
+verziószám készítése manapság elterjedt, ezért adódik, hogy legyen ez az egyedi cimkénk.
+
+Sajnos ez csak addig ennyire egyszerű, amíg nem jutunk el a kiadás létrehozásáig:
+vannak olyan teszteseteink (továbbiakban: \emph{Release teszt}),
+amelyek futtatása költséges, és/vagy különleges helyeken kell azt
+futtatni. Ezt a problémát úgy oldottuk fel, a létrehozott kiadáson hajtjuk végre ezeket.
+Amennyiben anomáliát észlelünk, a javítástól újraindítjuk a termékfejlesztés folyamatát,
+és \emph{a cimkét átmozgatjuk a javított állapotra}, amellyel azonnal megsérthetjük az egyedi
+cimkét, ha az átmozgatás nem mindenütt történik meg.
+
+Adódik a javaslat is, hogy külön jelöljük azokat a verziókat, amelyek eljutottak a Release tesztig,
+például a széles körben használt \emph{sorszámozott Release Candidate}, röviden \emph{rc} szuffixszel.
+
+\subsubsection{Configuration Management - CM rendszer használata}
+Belátható, hogy a \emph{git} verziókezelő rendszer széleskörű használata kezdetben megfelelő
+lehet CM rendszernek is.
+
+\subsubsection{Configuration Management - Autorizáció}
+\subsubsection{Mi változott az előző szinthez képest?}
+\begin{qoute}
+\end{quote}
+Ez az a pont, ahol a CM rendszer használata értelmet nyerhet, hiszen pont azzal a szándékkal
+vezetjük be, hogy csak az autorizált változtatásokat engedélyezze.
+
+Az előző pontban beláttuk a \emph{git} használatának előnyét, és a \emph{git}-et elsődlegesen
+forráskódok kezelésére használják, ezért visszavezethetjük a problémánkat oda, hogy hogyan
+\emph{szokás} a forráskód módosításainál eldönteni, hogy az autorizált-e.
+Észrevehetjük, hogy a nyílt, közösség által fejleszett projektek ezt meg tudják
+úgy oldani, hogy:
 \begin{itemize}
+    \item{csak olyan változtatások kerülhetnek be a kódbázisba, amelyet egy szűkebb csoport elfogad,}
+    \item{továbbá megmarad a lehetőség arra, hogy akárki képes legyen kontributálni.}
 \end{itemize}
+Azért képesek erre, az úgynevezett \emph{Forking Workflow}-t használják a fejlesztésre, amely röviden
+az alábbi lépésekből áll:
+\begin{enumerate}
+    \item{Létrejön egy ún. \emph{blessed repository}, amely a forráskód referenciaváltozatát
+        tartalmazza.}
+    \item{Az egyes fejlesztők leklónozzák ezt a \emph{repository}-t sajátként.}
+    \item{A fejlesztő a saját \emph{repository}-jában elkészíti a módosításait.}
+    \item{Valamilyen módon értesíti a \emph{blessed repository} tulajdonosát
+        (nevezzük ezt a személyt \emph{integrátornak}) az elkészített változtatásokról.}
+    \item{Az integrátor elfogadja, vagy elveti a javasolt változtatásokat.}
+\end{enumerate}
+Természetesen ahhoz, hogy ez működjön, meg kell tiltani a \emph{blessed repository} írását a
+többi fejlesztő által, vagy legalábbis csak kivételes esetekben szabad ezeket engedélyezni.
+
+A \emph{syslog-ng}-nél a közösség által fejlesztett változatban már korábban igazodni kellett
+ehhez a munkafolyamathoz, a kereskedelmi célú változatában ezt a gondolkodásmódot még erősíteni
+szükséges, mivel általában a módosítások integrálásának kérelme (továbbiakban: \emph{pull/merge request})
+meg szokott történni, de ez a \emph{blessed repository} egyik ágának a másikára szokott történni,
+azaz semmi sem garantálja, hogy egy rosszindulatú fejlesztő képtelen legyen tetszőleges módosítást
+végrehajtani a kódbázison.
+
+\subsubsection{Configuration Management - Production support, acceptance procedures, automation}
+\subsubsection{Mi változott az előző szinthez képest?}
+\begin{quote}
+    \begin{description}
+        \item[ALC\_CMC.4.4C]{The CM system shall provide \emph{automated} measures such that only authorised
+            changes are made to the configuration items.}
+        \item[ALC\_CMC.4.5C]{\emph{The CM system shall support the production of the TOE by automated means.}}
+        \item[ALC\_CMC.4.8C]{\emph{The CM plan shall describe the procedures used to accept modified or newly created
+            configuration items as part of the TOE.}}
+    \end{description}
+\end{quote}
+Azaz ez a szekció a magasabb szintű automatizálás megvalósítására hivatott
 
 \subsection{Delivery}
+
+Ennek a szekciónak a célja olyan intézkedések/követelmények megfogalmazása, amelyek biztosítják, hogy a felhasználóhoz biztonságosan jut el a termékünk.
 
 \section{Development Security}
 
