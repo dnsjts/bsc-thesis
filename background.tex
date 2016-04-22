@@ -6,7 +6,38 @@ Az egyes megközelítések feltérképezéséhez és megvizsgálásához remek k
 alábbi publikáció: \url{http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.132.4843&rep=rep1&type=pdf}.
 
 \subsection{Attack trees}
+
+Az \emph{Attack trees} egy olyan módszer, amellyel egy adott támadást elemezhetünk egyszerűen, egy
+faként reprezentálva az alábbi szabályok mentén:
+\begin{enumerate}
+    \item A fa gyökerében az az esemény áll, amely bekövetkezésekor a támadást sikeresnek tekintjük.
+    \item A szülő és a gyerek eseménye között az a kapcsolat, hogy a szülő eseménye akkor, és 
+        csak akkor következik be, ha a gyerek eseménye is.
+        Összekapcsolt gyerekek esetén akkor és csak akkor, ha mindegyik gyerek eseménye bekövetkezett.
+\end{enumerate}
+Miután megtaláltuk az eseményeink függőségeit (pontosabban a további felbontásnak már nem lenne
+értelme), lehetőségünk van ezeket különféle szempontokból elemezni, például az alábbi szempontok mentén:
+\begin{itemize}
+    \item Lehetséges-e egyáltalán az esemény bekövetkezése
+    \item Mekkora költséggel jár előidézni az eseményt
+    \item Mekkora költséggel jár megelőzni az eseményt
+    \item Szükséges-e különleges felszerelés az előidézéshez
+\end{itemize}
+
+Az alábbi szempontok segíthetnek eldönteni, hogy megéri-e foglalkozni a védelem kialakításával,
+szem előtt tartva, hogy mit feltételezünk a támadóról.
+
+Habár a módszer kellően könnyedén értelmezhető (hiszen csupán egy fát használ) és könnyedén alkalmazható,
+számunkra kevésbé használható, hiszen nem kellően széleskörű, és megoldásokat egyáltalán nem szolgáltat,
+és a teljesség sem garantált.
+
 \subsection{Abuse/Misuse cases}
+
+Az \emph{Misuse cases} az ismert \emph{use case} diagramnak a kifordított változata, azaz ahelyett,
+hogy azt modelleznénk, hogy egy adott szereplő milyen tevékenységeket végezhet el, itt inkább azt
+modellezzük, hogy egy rosszindulatú szereplő milyen nemkívánt tevékenységeket végezne el, azaz
+meghatározhatjuk azokat a tevékenységeket, amelyeket a \emph{rendszernek tiltania kellene}.
+
 \subsection{ISO 27000-as család}
 \subsubsection{ISO 27001:2013}
 Ellentétben a korábbi megközelítésekkel, az \emph{ISO 27001}-es szabvány 
