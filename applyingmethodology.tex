@@ -5,7 +5,22 @@
 
 Lsd: Flaw remediation (ALC\_FLR)
 
-\subsection{Fejlesztési- és karbantartási folyamatok}
+\subsection{Fejlesztési- és karbantartási folyamatok (ALC\_LCD)}
+Ez a szekció megmutatja, hogy a jelenlegi, gyengén irányított folyamatainkat miért lenne előnyös
+magasabb szinten felügyelni, és milyen kezdeti lépések lennének megfelelőek ennek elérése irányában.
+
+A \emph{Common Criteria} szempontjából ez azért fontos kérdés, mivel ekkor a
+\emph{funkcionális biztonsági követelmények (Security Functional Requirements, SFR)} megvalósulása
+egyáltalán nem garantált, amely nyilvánvalóan elfogadhatatlan, mivel azért (is) vezettük be a
+\emph{Common Criteria}-t, hogy a termékünk biztonságosabb legyen.
+
+Az is egy fontos követelmény, hogy a fejlesztést ne akadályozza számottevően a munkafolyamat, mivel
+ilyenkor fennáll a motiváció, hogy ezeket valamilyen módon megkerüljük. Ezzel ekvivalens
+követelmény, ha valamilyen módon minimalizáljuk a fejlesztő adminisztrációval eltöltött idejét,
+amelyből következik, hogy olyan adminisztrációs eszközt használunk, amely nagyfokú automatizálást
+tesz lehetővé, és a nehezen automatizálható feladatok elvégzésére egy nagyon egyszerű felületet
+biztosít.
+
 \subsubsection{Fejlesztési folyamat}
 Jelenleg az alábbi állomások vannak egy \emph{feature request} életében:
 \begin{description}
@@ -20,20 +35,27 @@ Jelenleg az alábbi állomások vannak egy \emph{feature request} életében:
 
 \subsubsection{Szigorítások a folyamatokon}
 
-A feladatok száma elérte már azt a szintet, hogy nem tudjuk fejben megbízhatóan követni őket, ezért
-a jegyek kezelésére bevezettük a JIRA-t, így a fejlesztő tudja frissíteni dolgozott jegy állapotát.
+A párhuzamosan futó feladatok száma már korábban elérte azt a szintet, hogy nem tudjuk fejben
+megbízhatóan követni őket, ezért a jegyek kezelésére bevezettük a \emph{VersionOne}-t, majd végül
+ezt leváltotta a \emph{JIRA}.
+A jelenlegi munkafolyamatokat az alábbi gráfok jellemzik, ahol az egyes csomópontok a fentebb
+említett állapotok közül lehetségesek, az élek pedig az engedélyezett átmeneteket jelentik.
+\missingfigure{Jelenlegi fejlesztési folyamat}
+\missingfigure{Jelenlegi karbantartási folyamat}
 Sajnos tetszőleges átmenet megengedett két állapot között, így felmerülnek olyan, minőségbiztosítási
-szempontból aggályos kiskapuk,
+szempontból aggályos kiskapuk
 
 Ezért első közelítésben korlátozni kell a lehetséges átmeneteket az alábbiakra.
 
-Belátható, hogy ez nem elégséges, ezzel csak annyit értünk el, hogy a rosszindulatú fejlesztőnek
-kicsit több időbe telik a szándékolt változtatás, ezért az alábbi előfeltételek és automatizmusok
+\missingfigure{Korlátozott állapotátmeneti gráf}
+
+Belátható, hogy ez közel sem elégséges, mivel ezzel csupán annyit értünk el, hogy a rosszindulatú
+fejlesztőnek több időbe telik a szándékolt változtatás, ezért az alábbi előfeltételek és automatizmusok
 szükségesek az átmenetek végrehajtásához.
 
-Ezek a szigorítások elégségesnek bizonyulnak egy átlagos jogkörrel rendelkező fejlesztő
-rosszindulatú jegykezelésének megfékezésére, azok ellen hatástalan, akiknek rendszerszintű
-jogosultsága van a JIRA felett, de ezen emberek száma már lényegesen kevesebb.
+\missingfigure{Az egyet állapotátmenetekhez kapcsolt ellenőrzések, és automatizmusok}
+
+Ezek a szigorítások 
 
 \subsection{Configuration Management}
 A \emph{Configuration Management} (továbbiakban: CM) egy olyan rendszer, amely arra hivatott,
