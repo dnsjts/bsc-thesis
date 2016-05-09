@@ -1,11 +1,87 @@
-\chapter{A metodologia alkalmazása}
+\chapter{A metodologia alkalmazása a termékfejlesztési folyamatokra}
 
-\section{Termékfejlesztési folyamatok vizsgálata}
-\subsection{Észlelt hibák biztonsági vizsgálata}
+A \emph{Common Criteria} széleskörű követelményrendszerét olvasva könnyedén a bőség zavarával
+küzdhetünk a megfelelő kezdési pont kiválasztásakor. Ez a fejezet azokat a komponenseket szedte egy
+csokorba, amelyek a termékfejlesztési folyamatokhoz kapcsolódnak, méghozzá abban a sorrendben, ahogy
+az a folyamatokban előfordul.
+\todo[inline]{Szebben megfogalmazni a csodálatosságát a sorrendnek.}
 
-Lsd: Flaw remediation (ALC\_FLR)
+\section{Felfedezett hibák vizsgálata biztonsági szempontból (ALC\_FLR)}
 
-\subsection{Fejlesztési- és karbantartási folyamatok (ALC\_LCD)}
+Az alábbi szekció a karbantartási folyamat azon részével foglalkozik, miszerint a felfedezett
+hibákat (különös tekintettel a biztonsági kockázatot hordozó hibákra) hogyan is kezeljük. A kezelés
+fogalmát jelenleg nem tudjuk pontosan meghatározni, ennek feloldása az egyes szinteken lesz
+szükséges.
+
+A kiértékelési komponens (ALC\_FLR osztály) szintezésére igaz, hogy a magasabb szinteken
+szigorúbbak a hibakezelési folyamatok, és egyre szigorúbbak a irányelvek.
+
+Észrevehetjük, hogy a három szint kezelése lényegében azonos eszközöket fog igénybe venni, ezért egy
+lépésben a legmagasabbat is megvalósíthatjuk, így a köztes lépések megvalósításának tanulmányozása
+nem hordozna többletértéket.
+
+\subsection{ALC\_FLR.1 - Basic flaw remediation}
+\begin{quote}
+    \begin{description}
+        \item[ALC\_FLR.1.1D]{The developer shall document and provide flaw remediation procedures
+            addressed to TOE developers.}
+        \item[ALC\_FLR.1.1C]{The flaw remediation procedures documentation shall describe the
+            procedures used to track all reported security flaws in each release of the TOE.}
+        \item[ALC\_FLR.1.2C]{The flaw remediation procedures shall require that a description of the
+            nature and effect of each security flaw be provided, as well as the status of finding
+            a correction to that flaw.}
+        \item[ALC\_FLR.1.3C]{The flaw remediation procedures shall require that corrective actions
+            be identified for each of the security flaws.}
+        \item[ALC\_FLR.1.4C]{The flaw remediation procedures documentation shall describe the
+            methods used to provide flaw information, corrections and guidance on corrective actions
+            to TOE users.}
+    \end{description}
+\end{quote}
+
+\todo[inline]{Célja a Basic flaw remediation-nak}
+
+\subsection{ALC\_FLR.2 - Flaw reporting procedures}
+\begin{quote}
+    \begin{description}
+        \item[ALC\_FLR.2.2D]{The developer shall establish a procedure for accepting and acting upon
+            all reports of security flaws and requests for corrections to those flaws.}
+        \item[ALC\_FLR.2.3D]{The developer shall provide flaw remediation guidance addressed to TOE
+            users.}
+        \item[ALC\_FLR.2.5C]{The flaw remediation procedures shall describe a means by which the
+            developer receives from TOE users reports and enquiries of suspected security flaws in
+        the TOE.}
+        \item[ALC\_FLR.2.6C]{The procedures for processing reported security flaws shall ensure that
+            any reported flaws are remediated and the remediation procedures issued to TOE users.}
+        \item[ALC\_FLR.2.7C]{The procedures for processing reported security flaws shall provide
+            safeguards that any corrections to these security flaws do not introduce any new flaws.}
+        \item[ALC\_FLR.2.8C]{The flaw remediation guidance shall describe a means by which TOE users
+            report to the developer any suspected security flaws in the TOE.}
+    \end{description}
+\end{quote}
+\todo[inline]{Célja a flaw reporting procedures-nek}
+
+\subsection{ALC\_FLR.3 - Systematic flaw remediation}
+
+Az előző szinthez képes az alábbi szempontok adódtak hozzá a jelenlegi szinthez:
+\begin{quote}
+    \begin{description}
+        \item[ALC\_FLR.3.6C]{The flaw remediation procedures shall include a procedure requiring
+            timely response and the automatic distribution of security flaw reports and the
+            associated corrections to registered users who might be affected by the security flaw.}
+        \item[ALC\_FLR.3.10C]{The flaw remediation guidance shall describe a means by which TOE
+            users may register with the developer, to be eligible to receive security flaw reports
+            and corrections.}
+        \item[ALC\_FLR.3.11C]{The flaw remediation guidance shall identify the specific points of
+            contact for all reports and enquiries about security issues involving the TOE.}
+    \end{description}
+\end{quote}
+\todo[inline]{Célja a systematic flaw remediationnak.}
+
+\subsection{Flaw remediation megvalósítása}
+
+\todo[inline]{Procedúra JIRA-ba bevezetve}
+
+\section{Fejlesztési- és karbantartási folyamatok (ALC\_LCD)}
 Ez a szekció megmutatja, hogy a jelenlegi, gyengén irányított folyamatainkat miért lenne előnyös
 magasabb szinten felügyelni, és milyen kezdeti lépések lennének megfelelőek ennek elérése irányában.
 
@@ -14,69 +90,195 @@ A \emph{Common Criteria} szempontjából ez azért fontos kérdés, mivel ekkor 
 egyáltalán nem garantált, amely nyilvánvalóan elfogadhatatlan, mivel azért (is) vezettük be a
 \emph{Common Criteria}-t, hogy a termékünk biztonságosabb legyen.
 
-Az is egy fontos követelmény, hogy a fejlesztést ne akadályozza számottevően a munkafolyamat, mivel
-ilyenkor fennáll a motiváció, hogy ezeket valamilyen módon megkerüljük. Ezzel ekvivalens
-követelmény, ha valamilyen módon minimalizáljuk a fejlesztő adminisztrációval eltöltött idejét,
-amelyből következik, hogy olyan adminisztrációs eszközt használunk, amely nagyfokú automatizálást
-tesz lehetővé, és a nehezen automatizálható feladatok elvégzésére egy nagyon egyszerű felületet
-biztosít.
+A folyamat gyakorlati alkalmazásának egy lényeges követelménye, hogy a fejlesztést ne akadályozza
+számottevően, mivel ilyenkor fennáll a motiváció, hogy ezeket valamilyen módon megkerüljük. Ezzel
+ekvivalens követelmény, ha valamilyen módon minimalizáljuk a fejlesztő adminisztrációval eltöltött
+idejét, amelyből következik, hogy olyan adminisztrációs eszközt használunk, amely nagyfokú
+automatizálást tesz lehetővé, és a nehezen automatizálható feladatok elvégzésére egy nagyon egyszerű
+felületet biztosít.
 
-\subsubsection{Fejlesztési folyamat}
-Jelenleg az alábbi állomások vannak egy \emph{feature request} életében:
-\begin{description}
-    \item[To do] {Jelentése}
-    \item[To do] {Jelentése}
-    \item[To do] {Jelentése}
-    \item[To do] {Jelentése}
-    \item[To do] {Jelentése}
-\end{description}
-
-\subsubsection{Karbantartási folyamatok}
-
-\subsubsection{Szigorítások a folyamatokon}
-
+\subsection{Jelenlegi folyamatok}
 A párhuzamosan futó feladatok száma már korábban elérte azt a szintet, hogy nem tudjuk fejben
 megbízhatóan követni őket, ezért a jegyek kezelésére bevezettük a \emph{VersionOne}-t, majd végül
-ezt leváltotta a \emph{JIRA}.
-A jelenlegi munkafolyamatokat az alábbi gráfok jellemzik, ahol az egyes csomópontok a fentebb
-említett állapotok közül lehetségesek, az élek pedig az engedélyezett átmeneteket jelentik.
-\missingfigure{Jelenlegi fejlesztési folyamat}
-\missingfigure{Jelenlegi karbantartási folyamat}
-Sajnos tetszőleges átmenet megengedett két állapot között, így felmerülnek olyan, minőségbiztosítási
-szempontból aggályos kiskapuk
+ezt leváltotta a \emph{JIRA}.  A jelenlegi munkafolyamatokat az alábbi gráfok jellemzik, ahol az
+egyes csomópontok a fentebb említett állapotok közül lehetségesek, az élek pedig az engedélyezett
+átmeneteket jelentik.
 
-Ezért első közelítésben korlátozni kell a lehetséges átmeneteket az alábbiakra.
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth, height=0.25\textheight, keepaspectratio]{figures/oldfeature.png}
+    \caption{A jelenlegi, megengedő fejlesztési folyamat}
+    \label{fig:oldfeature}
+\end{figure}
+\FloatBarrier
+\pagebreak[3]
 
-\missingfigure{Korlátozott állapotátmeneti gráf}
+\begin{figure}[h]
+    \includegraphics[width=\textwidth, height=0.25\textheight, keepaspectratio]{figures/oldmt.png}
+    \centering
+    \caption{A jelenlegi, megengedő karbantartási folyamat}
+    \label{fig:oldmt}
+\end{figure}
 
-Belátható, hogy ez közel sem elégséges, mivel ezzel csupán annyit értünk el, hogy a rosszindulatú
-fejlesztőnek több időbe telik a szándékolt változtatás, ezért az alábbi előfeltételek és automatizmusok
-szükségesek az átmenetek végrehajtásához.
+\FloatBarrier
+\pagebreak[3]
+\subsection{Szigorítások a folyamatokon}
 
-\missingfigure{Az egyet állapotátmenetekhez kapcsolt ellenőrzések, és automatizmusok}
+Mint ahogy az a gráfokból leolvasható, sajnos tetszőleges két állapot között megengedett átmenet,
+ezért például lehetséges egy hiba javításánál a szakmai lektorálás kihagyása, amely jobb esetben
+csak a kód minőségének romlásához, legrosszabb esetben viszont kártékony kód kódbázisba kerüléséhez
+vezethet.
 
-Ezek a szigorítások 
+Ezért első közelítésben érdemes korlátozni a lehetséges átmeneteket az alábbiakra.
 
-\subsection{Configuration Management}
-A \emph{Configuration Management} (továbbiakban: CM) egy olyan rendszer, amely arra hivatott,
+\begin{figure}[h]
+    \includegraphics[width=\textwidth, keepaspectratio]{figures/newfeature.png}
+    \centering
+    \caption{Korlátozott fejlesztési folyamat}
+    \label{fig:newfeature}
+\end{figure}
+
+\begin{figure}[h]
+    \includegraphics[width=\textwidth, keepaspectratio]{figures/newmt.png}
+    \centering
+    \caption{Korlátozott karbantartási folyamat}
+    \label{fig:newmt}
+\end{figure}
+
+\FloatBarrier
+
+Az átmenetek létrehozásával lehetőségünk nyílt \emph{JIRA}-ban az egyes átmenetekhez
+\begin{itemize}
+    \item \emph{feltétel}eket (olyan előfeltételek, amelyek teljesülése engedi az állapot
+        végrehajtását),
+    \item \emph{validator}okat (olyan ellenőrzések, amelyek az átmenet végrehajtása előtt
+        értékelődnek ki),
+    \item és \emph{post function}-öket (olyan műveletek, amelyek az átmenet végrehajtása után
+        lefutnak)
+\end{itemize}
+definiálni. Ez az eszköztár segíthet abban, hogy ne csupán lassítsuk a kritikus állapotok
+átugrásának kísérletét, de akár kényszeríthetjük, hogy más emberekkel együtt kelljen működnie
+ahhoz, hogy a szándékolt változtatást végrehajtsa, amelyről azt feltétlezzük, hogy a belső támadónak
+ez már elég költséges és/vagy kockázatos ahhoz, hogy inkább más módszert keressen.
+
+Ez például megvalósítható úgy, hogy eltárolom azokat a fejlesztőket, akik létrehozták a megoldást
+(azaz azokat, akik valaha ,,\emph{To do}''-ból ,,\emph{In progress}''-be mozgatták az adott jegyet),
+és csak annak engedem a tesztelésen és a lektoráláson való továbbengedést, akik nincsenek benne az
+előbb létrehozott listában.
+
+További kényelmi funkciókat is megalapoztunk az átmenetek szétválasztásával, mint például azt, hogy
+végrehajtásukkor van lehetőségünk a JIRA felhasználótól információt bekérni.
+Ez önmagában nem tűnik nagy előnynek, de ha belegondolunk, akkor például a karbantartás tanulási
+görbéje kevésbé lett meredek, hiszen így már nem kell ismerni, globálisan a folyamatot, elég lokális
+döntéseket meghozni (átment-e a módosítás a teszteken, vagy sem), illetve nem kell ismerni például
+azt sem, hogy mielőtt a tesztelőknek odaadnám a módosításaimat, létre kell hoznom egy teljes
+telepítőcsomagot, ha a \emph{JIRA} rákérdez az átmenet végrehajtása előtt, hogy milyen elérési
+útvonalon találja meg a generált telepítőcsomagot. Ez a megközelítés gyakorlatilag a
+\emph{fail-fast} \cite{FailFast} szoftverfejlesztési technika folyamatokra vetített változata.
+
+\pagebreak[3]
+\section{Configuration Management}
+A \emph{Configuration Management} (továbbiakban: \emph{CM}) egy olyan rendszer, amely arra hivatott,
 hogy azokat a változtatásokat nyomon tudja követni, amelyek hatással lehetnek a vizsgált termékre.
 Amennyiben csak jól meghatározott, autorizált változtatásokat engedélyezünk, biztosíthatjuk a
 termékünk integritását.
-Természetesen mielőtt egyáltalán bevezetnénk a \emph{CM}-et, feltétlenül szükséges meghatározni
-annak hatókörét. Erre szolgál a \emph{ALC\_CMS} szekció.
 
-\subsubsection{Configuration Management Scope}
-\begin{itemize}
-    \item{ALC\_CMS.1}
-    \item{ALC\_CMS.2}
-    \item{ALC\_CMS.3}
-    \item{ALC\_CMS.4}
-    \item{ALC\_CMS.5}
-\end{itemize}
+\subsection{Configuration Management Scope}
+\todo[inline]{Egyes pontok kifejtése}
+Természetesen mielőtt egyáltalán bevezetnénk a \emph{CM}-et, szükséges meghatározni annak hatókörét.
+Ez a szekció meghatározza azokat a dolgokat, amelyeket feltétlenül szükséges a \emph{CM} rendszerben
+kezelnünk, a szinteket is ez határozza meg (azaz magasabb szinten többet kell lefednie
+a \emph{CM}-nek).
 
-\pagebreak[0]
-\subsubsection{Configuration Management - termék verziózása}
-\subsubsection{Az első szint követelményei}
+\pagebreak[3]
+\subsubsection{ALC\_CMS.1 - TOE CM coverage}
+\begin{quote}
+    \begin{description}
+        \item[ALC\_CMS.1.1D]{The developer shall provide a configuration list for the TOE.}
+        \item[ALC\_CMS.1.1C]{The configuration list shall include the following: the TOE itself; and
+            the evaluation evidence required by the SARs.}
+        \item[ALC\_CMS.1.2C]{The configuration list shall uniquely identify the configuration
+            items.}
+    \end{description}
+\end{quote}
+
+\pagebreak[3]
+\subsubsection{ALC\_CMS.2 - Parts of the TOE CM coverage}
+\begin{quote}
+    \begin{description}
+        \item[ALC\_CMS.2.1C]{The configuration list shall include the following: [\ldots] \emph{and
+            the parts that comprise the TOE}.}
+        \item[ALC\_CMS.2.3C]{For each TSF relevant configuration item, the configuration list shall
+            indicate the developer of the item.}
+    \end{description}
+\end{quote}
+
+\pagebreak[3]
+\subsubsection{ALC\_CMS.3 - Implementation representation CM coverage}
+\begin{quote}
+    \begin{description}
+        \item[ALC\_CMS.3.1C]{The configuration list shall include the following: [\ldots];
+            \emph{and the implementation representation}.}
+    \end{description}
+\end{quote}
+
+Mint látható, csupán annyit változott a követelmény, hogy az implementációs reprezentációt (, azaz
+gyakorlatilag a termék forráskódját) \emph{CM}-ben kezeljük. Mivel már minden forráskódot
+a \emph{git} verziókezelővel követünk, ezért ha ezt a rendszert beleértjük a CM-be, akkor könnyedén
+teljesíthetjük ezt a követelményt.
+
+\pagebreak[3]
+\subsubsection{ALC\_CMS.4 - Problem tracking CM coverage}
+\begin{quote}
+    \begin{description}
+        \item[ALC\_CMS.4.1C]{The configuration list shall include the following: [\ldots]; \emph{and
+            security flaw reports and resolution status}.}
+    \end{description}
+\end{quote}
+
+A \emph{flaw remediation} részben arra a konklúzióra jutottunk, hogy a biztonsági hibákat
+\emph{JIRA}-ban \cite{JIRA} követjük, ezért a \emph{CM} rendszerhez érdemes hozzávennünk magát
+a \emph{JIRA}-t is, pontosan úgy, mint ahogy az előző pontban tettük. Mivel azonban már három
+független rendszer összekapcsolásánál járunk, egyre jobban kell figyelnünk a megfelelő
+szinkronizáció kialakításánál.
+
+\pagebreak[3]
+\subsubsection{ALC\_CMS.5 - Development tools CM coverage}
+\begin{quote}
+    \begin{description}
+        \item[ALC\_CMS.5.1C]{The configuration list shall include the following: [\ldots]; security
+            flaw reports and resolution status; \emph{and development tools and related
+            information}.}
+    \end{description}
+\end{quote}
+
+A fejlesztői eszközök (olyan eszközök, amelyek részt vesznek a termék létrehozásában) és azok
+konfigurációi definíció szerint olyan dolgok, amelyek módosításait \emph{CM} rendszerben erősen
+ajánlott követnünk, hiszen ha például lehetőségünk van autorizálatlanul az egyes fordítóprogramokat
+tetszőleges binárisra lecserélnünk, máris tetszőlegesen módosíthatjuk a \emph{TOE}-t annak
+generálása során, vagy ha ugyan az eszközök változásait követjük, de a konfigurációjáét nem, akkor
+például egyes fordítói ellenőrzések kikapcsolásával, olyan hibákat engedhetünk a kódban, amelyeket
+már a fordítás során is észrevehettünk volna.
+
+Ezt a követelményt továbbfejleszthetjük úgy, hogy a \emph{Infrastructure as Code, IaC} paradigmát
+szem előtt tartva olyan formában írjuk le, amely alkalmas a fejlesztési környezet könnyű
+reprodukciójához. Ilyen például a \emph{syslog-ng} fordítására alkalmas \emph{Docker} konténert
+leíró \emph{Dockerfile}. \cite{syslogngenv}
+
+Ennek a követelménynek a betartatásánál könnyedén túlzásokba is eshetünk úgy, hogy azt
+a környezetet, amelyben a implementációs reprezentáción dolgozunk, fejlesztőinek tekintjük, és
+korlátozzuk a fejlesztőket ennek használatára. Belátható, hogy ez feleslegesen mehet
+a termelékenység rovására.
+
+\pagebreak[3]
+\subsection{Configuration Management Capabilities - ALC\_CMC}
+
+A \emph{CM} másik lényeges összetevője annak definiálása, hogy maga a rendszer milyen
+változtatásokat engedélyez a felügyelt elemein. Erre szolgál az \emph{ALC\_CMC} alosztály.
+Az előző alosztályokhoz hasonlóan a szintek meghatározása az ellenőrzések szigorúságával van
+összefüggésben.
+
+\subsubsection{ALC\_CMC.1 - Labelling of the TOE}
 \begin{quote}
     \begin{description}
         \item[ALC\_CMC.1.1D]{The developer shall provide the TOE and a reference for the TOE.}
@@ -84,17 +286,17 @@ annak hatókörét. Erre szolgál a \emph{ALC\_CMS} szekció.
     \end{description}
 \end{quote}
 
-Az EAL1 szint elérése ennél az alosztálynál egy egészen egyszerű feladatnak tűnik, hiszen csupán
-annyi a feladat, hogy a termék egy adott állapotát egy egyedi cimkével ellássuk, és mivel a
-verziószám készítése manapság elterjedt, ezért adódik, hogy legyen ez az egyedi cimkénk.
+Az \emph{EAL1} szint elérése ennél az alosztálynál egy egészen egyszerű feladatnak tűnik, hiszen
+csupán annyi a feladat, hogy a termék egy adott állapotát egy egyedi cimkével ellássuk, és mivel
+a verziószám készítése manapság elterjedt, ezért adódik, hogy legyen ez az egyedi cimkénk.
 
-Sajnos ez csak addig ennyire egyszerű, amíg nem jutunk el a kiadás létrehozásáig:
-vannak olyan teszteseteink (továbbiakban: \emph{Release teszt}),
-amelyek futtatása költséges, és/vagy különleges helyeken kell azt
-futtatni. Ezt a problémát úgy oldottuk fel, a létrehozott kiadáson hajtjuk végre ezeket.
-Amennyiben anomáliát észlelünk, a javítástól újraindítjuk a termékfejlesztés folyamatát,
-és \emph{a cimkét átmozgatjuk a javított állapotra}, amellyel azonnal megsérthetjük az egyedi
-cimkét, ha az átmozgatás nem mindenütt történik meg.
+Sajnos ez csak addig ennyire egyszerű, amíg nem jutunk el a kiadás létrehozásáig: vannak olyan
+teszteseteink (továbbiakban: \emph{Release teszt}), amelyek futtatása költséges, és/vagy különleges
+eszközökön kell azt futtatni. Ezt korábban úgy oldottuk fel, hogy az ilyen tesztek futtatását
+a kiadás létrehozásáig elodáztuk.  Amennyiben anomáliát észlelünk, a javítástól újraindítjuk
+a termékfejlesztés folyamatát, és \emph{a cimkét átmozgatjuk a javított állapotra}, amellyel azonnal
+megsérthetjük a cimkék egyediségének feltételét , ha az átmozgatás nem mindenütt történik meg,
+továbbá ez a fejlesztők között is könnyedén félreérthetésekhez vezethet.
 
 Adódik a javaslat is, hogy külön jelöljük azokat a verziókat, amelyek eljutottak a Release tesztig,
 például a széles körben használt \emph{sorszámozott Release Candidate}, röviden \emph{rc}
@@ -108,58 +310,61 @@ Alternatív módszerek lehetnek az alábbiak:
         átadott commit commitid-ja>}
 \end{itemize}
 
-\pagebreak[0]
-\subsubsection{Configuration Management - CM rendszer használata}
-\subsubsection{Mi változott az előző szinthez képest?}
+\pagebreak[3]
+\subsubsection{ALC\_CMC.2 - Use of a CM system}
 
 \begin{quote}
     \begin{description}
-        \item[ALC\_CMC.2.2D]{\emph{The developer shall provide the CM documentation.}}
-        \item[ALC\_CMC.2.3D]{\emph{The developer shall use a CM system.}}
-        \item[ALC\_CMC.2.2C]{\emph{The CM documentation shall describe the method used to uniquely
-            identify the configuration items.}}
-        \item[ALC\_CMC.2.3C]{\emph{The CM system shall uniquely identify all configuration items.}}
+        \item[ALC\_CMC.2.2D]{The developer shall provide the CM documentation.}
+        \item[ALC\_CMC.2.3D]{The developer shall use a CM system.}
+        \item[ALC\_CMC.2.2C]{The CM documentation shall describe the method used to uniquely
+            identify the configuration items.}
+        \item[ALC\_CMC.2.3C]{The CM system shall uniquely identify all configuration items.}
     \end{description}
 \end{quote}
 Belátható, hogy a \emph{git} verziókezelő rendszer széleskörű használata kezdetben megfelelő
 lehet CM rendszernek is.
+\todo[inline]{Miért jó a git?}
 
 \pagebreak[1]
-\subsubsection{Configuration Management - Autorizáció}
-\subsubsection{Mi változott az előző szinthez képest?}
+\subsubsection{ALC\_CMC.3 - Authorisation controls}
 \begin{quote}
     \begin{description}
-        \item[ALC\_CMC.3.4C]{\emph{The CM system shall provide measures such that only authorised
-            changes are made to the configuration items.}}
-        \item[ALC\_CMC.3.5C]{\emph{The CM documentation shall include a CM plan.}}
-        \item[ALC\_CMC.3.6C]{\emph{The CM plan shall describe how the CM system is used for the
-            development of the TOE.}}
-        \item[ALC\_CMC.3.7C]{\emph{The evidence shall demonstrate that all configuration items are
-            being maintained under the CM system.}}
-        \item[ALC\_CMC.3.8C]{\emph{The evidence shall demonstrate that the CM system is being
-            operated in accordance with the CM plan.}}
+        \item[ALC\_CMC.3.4C]{The CM system shall provide measures such that only authorised changes
+            are made to the configuration items.}
+        \item[ALC\_CMC.3.5C]{The CM documentation shall include a CM plan.}
+        \item[ALC\_CMC.3.6C]{The CM plan shall describe how the CM system is used for the
+            development of the TOE.}
+        \item[ALC\_CMC.3.7C]{The evidence shall demonstrate that all configuration items are being
+            maintained under the CM system.}
+        \item[ALC\_CMC.3.8C]{The evidence shall demonstrate that the CM system is being operated in
+            accordance with the CM plan.}
     \end{description}
 \end{quote}
 
-Ez az a pont, ahol a CM rendszer használata értelmet nyerhet, hiszen pont azzal a szándékkal
-vezetjük be, hogy csak az autorizált változtatásokat engedélyezze.
+Ez az a pont, ahol a \emph{CM} használata értelmet nyer, mivel innentől már nem engedélyez
+tetszőleges módosításokat a kódbázison, ezáltal csökkentve a lehetőségét a \emph{TOE} rosszindulatú
+módosításának.
 
-Az előző pontban beláttuk a \emph{git} használatának előnyét, és a \emph{git}-et elsődlegesen
-forráskódok kezelésére használják, ezért visszavezethetjük a problémánkat oda, hogy hogyan
-\emph{szokás} a forráskód módosításainál eldönteni, hogy az autorizált-e.
-Észrevehetjük, hogy a nyílt, közösség által fejleszett projektek ezt meg tudják
-úgy oldani, hogy:
+Mivel előző pontban beláttuk a \emph{git} \emph{CM}-ként való  használatának előnyét, és
+a \emph{git}-et elsődlegesen forráskódok kezelésére használják, ezért visszavezethetjük
+a problémánkat arra, hogy hogyan \emph{szokás} a forráskód módosításainál eldönteni, hogy az
+autorizált-e.  Észrevehetjük, hogy a nyílt, közösség által fejleszett projektek ezt meg tudják úgy
+oldani, hogy:
 \begin{itemize}
-    \item{csak olyan változtatások kerülhetnek be a kódbázisba, amelyet egy szűkebb csoport elfogad,}
-    \item{továbbá megmarad a lehetőség arra, hogy akárki képes legyen kontributálni.}
+    \item{csak olyan változtatások kerülhetnek be a kódbázisba, amelyet egy szűkebb csoport
+        elfogad,}
+    \item{mégsem szűkül a lehetséges kontribútorok halmaza, azaz gyakorlatilag bárki
+        kontributálhat.}
 \end{itemize}
 
-Azért képesek erre, az úgynevezett \emph{Forking Workflow}-t használják a fejlesztésre, amely röviden
-az alábbi lépésekből áll:
+Ezen feltételek egy lehetséges megoldása az úgynevezett \emph{Forking Workflow}-t használata
+a fejlesztésre, amely röviden az alábbi lépésekből áll:
 \begin{enumerate}
     \item{Létrejön egy ún. \emph{blessed repository}, amely a forráskód referenciaváltozatát
         tartalmazza.}
-    \item{Az egyes fejlesztők leklónozzák ezt a \emph{repository}-t sajátként.}
+    \item{Az egyes fejlesztők leklónozzák ezt a \emph{repository}-t sajátként (ez a művelet úgy is
+        ismert, mint \emph{fork}olás)}
     \item{A fejlesztő a saját \emph{repository}-jában elkészíti a módosításait.}
     \item{Valamilyen módon értesíti a \emph{blessed repository} tulajdonosát
         (nevezzük ezt a személyt \emph{integrátornak}) az elkészített változtatásokról.}
@@ -169,59 +374,67 @@ az alábbi lépésekből áll:
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth, height=0.25\textheight, keepaspectratio]{figures/forkingworkflow.png}
+    \caption{Példa az egyes kontribútorok és a \emph{blessed repository} viszonyáról \cite{ForkingWorkflow}.}
 \end{figure}
 \FloatBarrier
 
-Természetesen ahhoz, hogy ez működjön, meg kell tiltani a \emph{blessed repository} írását a
-többi fejlesztő által, vagy legalábbis csak kivételes esetekben szabad ezeket engedélyezni.
+Természetesen ahhoz, hogy ez működjön, meg kell tiltani a \emph{blessed repository} írását a többi
+fejlesztő által(, vagy legalábbis csak kivételes esetekben szabad ezeket engedélyezni).
 
-A \emph{syslog-ng}-nél a közösség által fejlesztett változatban már korábban igazodni kellett
-ehhez a munkafolyamathoz, a kereskedelmi célú változatában ezt a gondolkodásmódot még erősíteni
-szükséges, mivel általában a módosítások integrálásának kérelme (továbbiakban: \emph{pull/merge request})
-meg szokott történni, de ez a \emph{blessed repository} egyik ágának a másikára szokott történni,
-azaz semmi sem garantálja, hogy egy rosszindulatú fejlesztő képtelen legyen tetszőleges módosítást
-végrehajtani a kódbázison.
+A \emph{syslog-ng}-nél a közösség által fejlesztett változatban már korábban igazodni kellett ehhez
+a munkafolyamathoz, a kereskedelmi célú változatában ezt a gondolkodásmódot még erősíteni szükséges,
+mivel általában a módosítások integrálásának kérelme (továbbiakban: \emph{pull/merge request}) meg
+szokott történni, de ez a \emph{blessed repository} egyik ágának a másikára szokott történni, azaz
+semmi sem garantálja, hogy egy fejlesztő ne csak az általa létrehozott \emph{branch}-et tudja írni.
 
 \pagebreak[1]
-\subsubsection{Configuration Management - Production support, acceptance procedures, automation}
-\subsubsection{Mi változott az előző szinthez képest?}
+\subsubsection{ALC\_CMC.4 - Production support, acceptance procedures and automation }
 \begin{quote}
     \begin{description}
         \item[ALC\_CMC.4.4C]{The CM system shall provide \emph{automated} measures such that only
             authorised changes are made to the configuration items.}
-        \item[ALC\_CMC.4.5C]{\emph{The CM system shall support the production of the TOE by
-            automated means.}}
-        \item[ALC\_CMC.4.8C]{\emph{The CM plan shall describe the procedures used to accept
-            modified or newly created configuration items as part of the TOE.}}
+        \item[ALC\_CMC.4.5C]{The CM system shall support the production of the TOE by
+            automated means.}
+        \item[ALC\_CMC.4.8C]{The CM plan shall describe the procedures used to accept
+            modified or newly created configuration items as part of the TOE.}
     \end{description}
 \end{quote}
-Azaz ez a szekció a magasabb szintű automatizálás megvalósítására hivatott, mivel az alapfeltételezés
-az, hogy az emberi tényező megbízhatósága lényegesen alacsonyabb lehet egy megegyező munkát végző
-géppel, főként az amúgy könnyedén automatizálható feladatoknál.
-Mint ahogy az a követelményekből látszik, a \emph{Common Criteria} csak az autorizált változtatások
-bekerülését szabályozná automatikusan, viszont ha az \emph{4.8C}-ben említett pontot kellőképpen
-formálisan írjuk le, akkor abból könnyedén programkód készülhet, és végsősoron az ellenőrzések egy
-részhalmazát automatikusan is ellenőrizhetjük.
+
+Azaz ez a szekció a magasabb szintű automatizálás megvalósítására hivatott, mivel az
+alapfeltételezés az, hogy az emberi tényező megbízhatósága lényegesen alacsonyabb lehet egy
+megegyező munkát végző géppel, főként az amúgy könnyedén automatizálható feladatoknál.  Mint ahogy
+az a követelményekből látszik, a \emph{Common Criteria} csak az autorizált változtatások bekerülését
+szabályozná automatikusan, viszont érdemes továbbgondolni a feladatot, mivel ha az \emph{4.8C}-ben
+említett pontot kellőképpen formálisan írjuk le, akkor abból könnyedén programkód készülhet, és
+végsősoron az ellenőrzések egy részhalmazát automatikusan megtehetjük.
 
 A \emph{syslog-ng} közösség által fejlesztett változatánál a legnagyobb elmaradás az elfogadás
 szükséges feltételeinek dokumentálása, és az automatizálható ellenőrzések automatizálása.
 
-Ennél a pontnál felmerült egy olyan eszköz létrehozása, 
-
 Van az ellenőrzéseknek egy olyan fajtája, amelyeket csak az újonnan beérkező kódra szeretnénk
-alkalmazni. Tipikus példa erre a kódstílus egységesítése: ha ezt a kódbázisra azonnal alkalmazni
-szeretnénk, akkor az túl nagy különbséget eredményezne. A stílus leírójának változásának alkalmazása
-ugyanúgy nagy különbséget eredményezne. Például ha a jelenlegi \emph{master} ágon szeretném az
-összes \emph{C} nyelven írt forrásfájlt formázni, akkor az önmagában egy $16375$ sor hozzáadásával
-és $15982$ sor törlését eredményezi.
+alkalmazni. Tipikus példa erre a kódstílus egységesítése: mind annak azonnali alkalmazása, mind a 
+stílusleíró változásával járó újraalkalmazás túl nagy különséget eredeményezne,
+például ha a jelenlegi \emph{master} ágon szeretném az összes \emph{C} nyelven írt forrásfájlt
+formázni, akkor az önmagában egy $16375$ sor hozzáadásával és $15982$ sor törlésével járna.
 Belátható, hogy ennek szakmai lektorálása (gyakrabban használt kifejezéssel \emph{(peer) review}-ja)
-nehézkes annak mérete miatt, a lektorálatlan kód pedig lehet, hogy kártékony módosításokat tartalmaz.
-A kártékony módosítások kiszűrése a legfontosabb feladata a lektornak, hiszen a \emph{syslog-ng}
-tipikusan \emph{root} felhasználóként fut.
+nehézkes annak mérete miatt, a lektorálatlan kód pedig lehet, hogy kártékony módosításokat
+tartalmaz.  A kártékony módosítások kiszűrése a legfontosabb feladata a lektornak, hiszen az esetek
+nagy részében a \emph{syslog-ng} \emph{root} felhasználóként fut, akinek a jogköre már egészen
+széles szokott lenni ahhoz, hogy érdemes legyen megszemélyesíteni.
 
+Az ilyen transzformációk miatt felmerült egy olyan könnyűsúlyú (ezáltal CI rendszerbe nyugodtan
+integrálható) eszköz létrehozása, amely képes ellenőrzéseket és átalakításokat végrehajtani csak és
+kizárólag néhány kódmódosítási egységen (pontosabban az adott verziókezelő által atominak tekintett
+módosításokon, másnéven \emph{commit}-okon), míg a kódbázis maradékát érintetlenül hagyja.
+Ellenőrzések esetén így megtalálhatjuk az első olyan \emph{commit}-ot, amely egy adott szempontból
+nem megfelelő, transzformációk esetén pedig \emph{commit}-ról \emph{commit}-ra tehetünk javaslatokat
+a javításra. Fontos megjegyezni, hogy az eszköz hatékony használatához elengedhetetlen
+a \emph{commit}-ok jólszervezettsége, hiszen minél kisebb egy módosítás, annál könnyebb
+a problémáit észrevenni.
 
-\subsubsection{Configuration Management - fejlett támogatás}
-\subsubsection{Mi változott az előző szinthez képest?}
+\todo[inline]{Tool beillesztése?}
+
+\subsubsection{ALC\_CMC.5 - Advanced support}
 \begin{quote}
     \begin{description}
         \item[ALC\_CMC.5.3C]{The CM documentation shall justify that the acceptance procedures
@@ -239,11 +452,39 @@ tipikusan \emph{root} felhasználóként fut.
     \end{description}
 \end{quote}
 
-\pagebreak[2]
-\subsection{Delivery}
+\todo[inline]{Alkalmazása, gitből levezetése}
 
-Ennek a szekciónak a célja olyan intézkedések/követelmények megfogalmazása, amelyek
-biztosítják, hogy a felhasználóhoz biztonságosan jut el a termékünk.
+\pagebreak[2]
+\section{Termék leszállítása (ALC\_DEL)}
+
+Ennek a szekciónak a célja olyan intézkedések/követelmények megfogalmazása, amelyek biztosítják,
+hogy a felhasználóhoz biztonságosan jut el vizsgált termék. Természetesen ez az osztály nem érinti a
+közösség által fejlesztett változatot, hiszen ott rendelkezésre áll mind a forráskód, mind azok az
+utasítások, amelyeket végrehajtva a forráskódból futtatható szoftvert állít elő, ezek védelmével
+pedig a korábban említett \emph{CM} rendszer már foglalkozott.
+
+Habár a Common Criteria eléggé szűkszavúan fogalmazza meg a követelményeket (csupán annyit ír elő,
+hogy dokumentáljuk, és a dokumentáció alapján szállítsuk a TOE-t), a segítségül szolgáló
+\emph{Application notes} alatt találhatunk gondolatébresztő szempontokat:
+
+\begin{quote}
+    The delivery procedures should consider, if applicable, issues such as:
+    \begin{itemize}
+        \item ensuring that the TOE received by the consumer corresponds precisely to the evaluated
+            version of the TOE;
+        \item avoiding or detecting any tampering with the actual version of the TOE;
+        \item preventing submission of a false version of the TOE;
+        \item avoiding unwanted knowledge of distribution of the TOE to the consumer: there might be
+            cases where potential attackers should not know when and how it is delivered;
+        \item avoiding or detecting the TOE being intercepted during delivery; and
+        \item avoiding the TOE being delayed or stopped during distribution.
+    \end{itemize}
+\end{quote}
+
+
+
+\todo[inline]{Producttól elkérni a folyamatot}
 
 \section{Development Security}
 
+\todo[inline]{SecMan}

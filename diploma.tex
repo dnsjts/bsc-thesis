@@ -28,6 +28,7 @@
 %--------------------------------------------------------------------------------------
 \newcommand{\vikszerzo}{Mózes Ádám István}
 \newcommand{\vikkonzulens}{dr.~Félegyházi Márk}
+\newcommand{\vikkulsokonzulens}{Budai László}
 \newcommand{\vikcim}{Modernizálás a Common Criteria alapján}
 \newcommand{\viktanszek}{Hálózati Rendszerek és Szolgáltatások Tanszék}
 \newcommand{\vikdoktipus}{Szakdolgozat}
@@ -120,7 +121,6 @@
 	chapter3,
 	declaration,
 	futureimprovements,
-	guideline,
     motivation,
 	introduction,
 	project,
@@ -145,17 +145,15 @@ aboveskip=10pt}
 %--------------------------------------------------------------------------------------
 \begin{document}
 \singlespacing
-\include{guideline}
-\include{project}
+%\include{project}
 
-% \pagenumbering{arabic}
-\pagenumbering{gobble}
+\pagenumbering{arabic}
 \onehalfspacing
 \include{titlepage}
 \tableofcontents\vfill
 \listoftodos
 \include{declaration}
-\pagenumbering{arabic}
+% \pagenumbering{arabic}
 \include{abstract}
 \include{introduction}
 \include{motivation}
@@ -175,4 +173,5 @@ aboveskip=10pt}
 \include{appendices}
 
 \label{page:last}
+
 \end{document}
