@@ -1,11 +1,75 @@
 \chapter{Háttérinformációk}
 
-\section{Motiváció}
-Ez a szekció betekintést enged mind a közösség által fejlesztett, mint a fizetős
-\todo[inline]{okosabb nevet?} változat fejlesztése során felmerülő nehézségekbe, esetleges
-anomáliákba.
+\section{A \emph{syslog-ng}-ről}
 
-\todo[inline]{Tünetek - okok kifejtése}
+\subsection{A fejlesztéshez használt technológiák}
+
+Ebben az alszekcióban szeretném bemutatni azokat az eszközöket, amelyek a fejlesztéshez nap mint nap
+használunk.
+
+\begin{description}
+    \item[JIRA] {Az Atlassian által fejlesztett, elsősorban hibajegyek kezelésére használatos
+        szoftver. Esetünkben a \emph{VersionOne}-t váltotta le.}
+    \item[ZBS] {asd }
+    \item[ZTS] {asd }
+    \item[git] {A git már egy nagy múltra visszatekintő (először 2005-ben adták ki), eredetileg a
+        Linux kernel fejlesztését segítő, elosztott verziókezelő rendszer. Elosztottságának
+        köszönhetően a nyílt forráskódú szoftverek világában az egyik legnagyobb mértékben
+        adoptált, köztük a \emph{syslog-ng} fejlesztésénél is ezt használjuk mindkét változatában.
+        (Kereskedelmi termékek fejlesztésénél ez annyira nem jellemző, nekünk viszont erősen
+    ajánlott azért, hogy a két változat közötti kódmozgatás gördülékenyebb legyen.)}
+    \item[GitHub] {Habár egy egyszerű tárhelynek tűnhet csupán, mégis az általa adott
+        többletszolgáltatások a közösség által fejlesztett syslog-ng központi elemévé tette.
+        Ilyen többletszolgáltatás a \emph{forkok} könnyű kezelése, a beépített hibajegykezelő,
+        a \emph{pull request}-ek könnyű kezelése (azaz a GitHub-on lévő forkomból pár
+        kattintással tudok kontribúciót küldeni az \emph{upstream repository}-ba), és a könnyű
+        bővíthetősége, például lektorálást segítő eszközökkel, \emph{Continous Integration}-t
+        megvalósító eszközökkel, statikus kódanalízist biztosító eszközökkel.
+        Természetesen a névválasztás nem véletlen, nagyban épít a korábban említett \emph{git}
+        verziókezelőre.}
+\end{description}
+
+\subsection{A fejlesztés során felmerülő problémák}
+
+A teljesség igénye nélkül listázzuk a fejlesztést nehezítő, olykor értékes fejlesztői időt pazarló
+problémákat:
+\begin{itemize}
+    \item Lassú lektorálási folyamat a közösség által fejlesztett változatban:
+\end{itemize}
+
+Ennek egy részproblémája az, hogy
+\begin{itemize}
+    \item a kód automatikusan formázva.
+\end{itemize}
+Érdekesség, hogy a \emph{CVE-2014-1266}, közismertebb nevén \emph{goto fail;} sérülékenységet egy
+egyszerű \emph{code beautifier} figyelemfelkeltőbbé tette volna azáltal, hogy a tabulálásokat
+(pontosabban fogalmazva \emph{indent}álásokat) helyessé tette volna.
+
+
+\begin{itemize}
+    \item Meredek tanulási görbe a belső eszközök használatánál:
+\end{itemize}
+, amelyből következik, hogy
+\begin{itemize}
+    \item a saját eszközök belső működéséhez kevesen értenek.
+\end{itemize}
+Ezért ennek a területnek definíció szerint alacsony a \emph{busz faktora}, amely hosszabb távon
+nézve kockázatos mind biztonsági (szélsőséges esetben egy ember ismer egy rendszert igazán, így az
+ő módosításainak lektorálása nem hatékony), mind 
+
+\begin{itemize}
+    \item Törékeny fejlesztési infrastuktúra.
+\end{itemize}
+Ez leginkább abban mutatkozik meg, hogy vannak olyan fejlesztői gépek, amelyeknél azok létrehozási
+lépései elvesztek, illetve az idők során az azon végzett módosítások nem lettek megfelelően
+dokumentálva. Amennyiben ez a fejlesztés szempontjából egy kritikus gép, belátható, hogy az egy
+időzített bombaként viselkedik a rendszerben. Ennek a problémának egy tipikus áthidalása, ha az
+adott gépről létezik visszaállítható biztonsági mentés, hiszen ekkor egy jól működő állapotra
+visszaállhatunk, de az esetleges korszerűsítés (például frissebb operációs rendszerre való átállás)
+még problémákat jelenthet.
+
+Úgy gondoljuk, hogy ezek kijavítása ugyan kezdetben sok erőforrást igényelhetnek, de a későbbiekben
+olyan mértékben egyszerűsítik a fejlesztők életét, hogy ez a befektetés megtérül.
 
 Időközben magasabb vezetési szintről felmerült az igény, hogy legyünk tisztában a termékeink
 \todo[inline]{Reword: }biztonsági állapotával, ezért mindenképpen kívánatos, ha a választott módszer
