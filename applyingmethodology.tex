@@ -3,8 +3,7 @@
 A \emph{Common Criteria} széleskörű követelményrendszerét olvasva könnyedén a bőség zavarával
 küzdhetünk a megfelelő kezdési pont kiválasztásakor. Ez a fejezet azokat a komponenseket szedte egy
 csokorba, amelyek a termékfejlesztési folyamatokhoz kapcsolódnak, méghozzá abban a sorrendben, ahogy
-az a folyamatokban előfordul.
-\todo[inline]{Szebben megfogalmazni a csodálatosságát a sorrendnek.}
+az a termékfejlesztés életciklusában előfordul.
 
 \section{Felfedezett hibák vizsgálata biztonsági szempontból (ALC\_FLR)}
 
@@ -14,9 +13,9 @@ fogalmát jelenleg nem tudjuk pontosan meghatározni, ennek feloldása az egyes 
 szükséges.
 
 A kiértékelési komponens (ALC\_FLR osztály) szintezésére igaz, hogy a magasabb szinteken
-szigorúbbak a hibakezelési folyamatok, és egyre szigorúbbak a irányelvek.
+szigorúbbak a hibakezelési folyamatok, és az irányelvek.
 
-Észrevehetjük, hogy a három szint kezelése lényegében azonos eszközöket fog igénybe venni, ezért egy
+Mivel a három szint kezelése lényegében azonos eszközöket fog igénybe venni, ezért egy
 lépésben a legmagasabbat is megvalósíthatjuk, így a köztes lépések megvalósításának tanulmányozása
 nem hordozna többletértéket.
 
@@ -103,7 +102,7 @@ említett állapotok közül lehetségesek, az élek pedig az engedélyezett át
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth, height=0.25\textheight, keepaspectratio]{figures/oldfeature.png}
+    \includegraphics[width=\textwidth, height=0.4\textheight, keepaspectratio]{figures/oldfeature.png}
     \caption{A jelenlegi, megengedő fejlesztési folyamat}
     \label{fig:oldfeature}
 \end{figure}
@@ -111,7 +110,7 @@ említett állapotok közül lehetségesek, az élek pedig az engedélyezett át
 \pagebreak[3]
 
 \begin{figure}[h]
-    \includegraphics[width=\textwidth, height=0.25\textheight, keepaspectratio]{figures/oldmt.png}
+    \includegraphics[width=\textwidth, height=0.4\textheight, keepaspectratio]{figures/oldmt.png}
     \centering
     \caption{A jelenlegi, megengedő karbantartási folyamat}
     \label{fig:oldmt}
@@ -126,7 +125,7 @@ ezért például lehetséges egy hiba javításánál a szakmai lektorálás kih
 csak a kód minőségének romlásához, legrosszabb esetben viszont kártékony kód kódbázisba kerüléséhez
 vezethet.
 
-Ezért első közelítésben érdemes korlátozni a lehetséges átmeneteket az alábbiakra.
+Első közelítésben érdemes korlátozni a lehetséges átmeneteket az alábbiakra:
 
 \begin{figure}[h]
     \includegraphics[width=\textwidth, keepaspectratio]{figures/newfeature.png}
@@ -154,9 +153,9 @@ Az átmenetek létrehozásával lehetőségünk nyílt \emph{JIRA}-ban az egyes 
         lefutnak)
 \end{itemize}
 definiálni. Ez az eszköztár segíthet abban, hogy ne csupán lassítsuk a kritikus állapotok
-átugrásának kísérletét, de akár kényszeríthetjük, hogy más emberekkel együtt kelljen működnie
-ahhoz, hogy a szándékolt változtatást végrehajtsa, amelyről azt feltétlezzük, hogy a belső támadónak
-ez már elég költséges és/vagy kockázatos ahhoz, hogy inkább más módszert keressen.
+átugrásának kísérletét, de akár kényszeríthetjük, hogy más emberekkel együtt kelljen működnie ahhoz,
+hogy a szándékolt változtatást végrehajtsa. Feltétlezihetjük, hogy a belső támadó számára ez már
+elég költséges és/vagy kockázatos ahhoz, hogy inkább más módszert keressen.
 
 Ez például megvalósítható úgy, hogy eltárolom azokat a fejlesztőket, akik létrehozták a megoldást
 (azaz azokat, akik valaha ,,\emph{To do}''-ból ,,\emph{In progress}''-be mozgatták az adott jegyet),
@@ -164,14 +163,14 @@ Ez például megvalósítható úgy, hogy eltárolom azokat a fejlesztőket, aki
 előbb létrehozott listában.
 
 További kényelmi funkciókat is megalapoztunk az átmenetek szétválasztásával, mint például azt, hogy
-végrehajtásukkor van lehetőségünk a JIRA felhasználótól információt bekérni.
-Ez önmagában nem tűnik nagy előnynek, de ha belegondolunk, akkor például a karbantartás tanulási
-görbéje kevésbé lett meredek, hiszen így már nem kell ismerni, globálisan a folyamatot, elég lokális
-döntéseket meghozni (átment-e a módosítás a teszteken, vagy sem), illetve nem kell ismerni például
-azt sem, hogy mielőtt a tesztelőknek odaadnám a módosításaimat, létre kell hoznom egy teljes
+végrehajtásukkor van lehetőségünk a JIRA felhasználótól információt bekérni.  Ez önmagában nem tűnik
+nagy előnynek, de ha belegondolunk, akkor például a karbantartás tanulási görbéje kevésbé lett
+meredek, hiszen így már nem kell ismerni, globálisan a folyamatot, elegendő lokális döntéseket
+meghozni (átment-e a módosítás a teszteken, vagy sem), illetve nem kell ismerni például azt sem,
+hogy mielőtt a tesztelőknek odaadnám a módosításaimat, létre kell hoznom egy teljes
 telepítőcsomagot, ha a \emph{JIRA} rákérdez az átmenet végrehajtása előtt, hogy milyen elérési
-útvonalon találja meg a generált telepítőcsomagot. Ez a megközelítés gyakorlatilag a
-\emph{fail-fast} \cite{FailFast} szoftverfejlesztési technika folyamatokra vetített változata.
+útvonalon találja meg a generált telepítőcsomagot. Ez a megközelítés gyakorlatilag
+a \emph{fail-fast} \cite{FailFast} szoftverfejlesztési technika folyamatokra vetített változata.
 
 \pagebreak[3]
 \section{Configuration Management}
@@ -198,6 +197,8 @@ a \emph{CM}-nek).
             items.}
     \end{description}
 \end{quote}
+
+
 
 \pagebreak[3]
 \subsubsection{ALC\_CMS.2 - Parts of the TOE CM coverage}
@@ -268,7 +269,7 @@ korlátozzuk a fejlesztőket ennek használatára. Belátható, hogy ez felesleg
 a termelékenység rovására.
 
 \pagebreak[3]
-\subsection{Configuration Management Capabilities - ALC\_CMC}
+\subsection{Configuration Management Capabilities (ALC\_CMC)}
 
 A \emph{CM} másik lényeges összetevője annak definiálása, hogy maga a rendszer milyen
 változtatásokat engedélyez a felügyelt elemein. Erre szolgál az \emph{ALC\_CMC} alosztály.
@@ -390,10 +391,10 @@ semmi sem garantálja, hogy egy fejlesztő ne csak az általa létrehozott \emph
     \begin{description}
         \item[ALC\_CMC.4.4C]{The CM system shall provide \emph{automated} measures such that only
             authorised changes are made to the configuration items.}
-        \item[ALC\_CMC.4.5C]{The CM system shall support the production of the TOE by
-            automated means.}
-        \item[ALC\_CMC.4.8C]{The CM plan shall describe the procedures used to accept
-            modified or newly created configuration items as part of the TOE.}
+        \item[ALC\_CMC.4.5C]{The CM system shall support the production of the TOE by automated
+            means.}
+        \item[ALC\_CMC.4.8C]{The CM plan shall describe the procedures used to accept modified or
+            newly created configuration items as part of the TOE.}
     \end{description}
 \end{quote}
 
@@ -404,32 +405,36 @@ az a követelményekből látszik, a \emph{Common Criteria} csak az autorizált 
 szabályozná automatikusan, viszont érdemes továbbgondolni a feladatot, mivel ha az \emph{4.8C}-ben
 említett pontot kellőképpen formálisan írjuk le, akkor abból könnyedén programkód készülhet, és
 végsősoron az ellenőrzések egy részhalmazát automatikusan megtehetjük.
+Az alosztály továbbá megköveteli a TOE automatikus létrehozhatóságát is. Ez összhangban áll a
+\emph{Continuous Integration} használatával. \todo[inline]{moar}
 
 A \emph{syslog-ng} közösség által fejlesztett változatánál a legnagyobb elmaradás az elfogadás
 szükséges feltételeinek dokumentálása, és az automatizálható ellenőrzések automatizálása.
 
 Van az ellenőrzéseknek egy olyan fajtája, amelyeket csak az újonnan beérkező kódra szeretnénk
-alkalmazni. Tipikus példa erre a kódstílus egységesítése: mind annak azonnali alkalmazása, mind a 
-stílusleíró változásával járó újraalkalmazás túl nagy különséget eredeményezne,
-például ha a jelenlegi \emph{master} ágon szeretném az összes \emph{C} nyelven írt forrásfájlt
-formázni, akkor az önmagában egy $16375$ sor hozzáadásával és $15982$ sor törlésével járna.
-Belátható, hogy ennek szakmai lektorálása (gyakrabban használt kifejezéssel \emph{(peer) review}-ja)
-nehézkes annak mérete miatt, a lektorálatlan kód pedig lehet, hogy kártékony módosításokat
-tartalmaz.  A kártékony módosítások kiszűrése a legfontosabb feladata a lektornak, hiszen az esetek
-nagy részében a \emph{syslog-ng} \emph{root} felhasználóként fut, akinek a jogköre már egészen
-széles szokott lenni ahhoz, hogy érdemes legyen megszemélyesíteni.
+alkalmazni, mint például a kódstílus egységesítése automatikus formázók segítségével:
+mind annak azonnali alkalmazása, mind a stílusleíró változásával járó újraalkalmazás túl nagy
+különséget eredeményezne a formázás előtti és utáni kód között (ha például a jelenlegi \emph{master}
+ágon szeretném az összes \emph{C} nyelven írt forrásfájlt formázni, akkor az önmagában egy $16375$
+sor hozzáadásával és $15982$ sor törlésével járna). Ennek teljes körű szakmai lektorálása
+nehézkes az átnézendő kód mérete miatt, a lektorálatlan kódról pedig feltételeznünk kell, hogy
+kártékony módosításokat tartalmazhat, hiszen az esetek nagy részében a \emph{syslog-ng} \emph{root}
+felhasználóként fut, akinek a jogköre már egészen széles szokott lenni ahhoz, hogy érdemes legyen
+megszemélyesíteni.
 
-Az ilyen transzformációk miatt felmerült egy olyan könnyűsúlyú (ezáltal CI rendszerbe nyugodtan
-integrálható) eszköz létrehozása, amely képes ellenőrzéseket és átalakításokat végrehajtani csak és
-kizárólag néhány kódmódosítási egységen (pontosabban az adott verziókezelő által atominak tekintett
+Az ilyen transzformációk miatt felmerült egy olyan könnyűsúlyú (ezáltal CI rendszerbe integrálható)
+eszköz létrehozása, amely képes ellenőrzéseket és átalakításokat végrehajtani csak és kizárólag
+néhány kódmódosítási egységen (pontosabban az adott verziókezelő által atominak tekintett
 módosításokon, másnéven \emph{commit}-okon), míg a kódbázis maradékát érintetlenül hagyja.
 Ellenőrzések esetén így megtalálhatjuk az első olyan \emph{commit}-ot, amely egy adott szempontból
 nem megfelelő, transzformációk esetén pedig \emph{commit}-ról \emph{commit}-ra tehetünk javaslatokat
-a javításra. Fontos megjegyezni, hogy az eszköz hatékony használatához elengedhetetlen
-a \emph{commit}-ok jólszervezettsége, hiszen minél kisebb egy módosítás, annál könnyebb
-a problémáit észrevenni.
+a javításra.
 
 \todo[inline]{Tool beillesztése?}
+
+Fontos megjegyezni, hogy az eszköz hatékony használatához elengedhetetlen a \emph{commit}-ok
+jólszervezettsége, hiszen minél kisebb egy módosítás, annál könnyebb a problémáit észrevenni,
+illetve ellenőrizni, hogy az eszközeink úgy módosították a kódot, ahogy azt elvártuk.
 
 \subsubsection{ALC\_CMC.5 - Advanced support}
 \begin{quote}
@@ -449,7 +454,7 @@ a problémáit észrevenni.
     \end{description}
 \end{quote}
 
-\todo[inline]{Alkalmazása, gitből levezetése}
+Ez a
 
 \pagebreak[2]
 \section{Termék leszállítása (ALC\_DEL)}
