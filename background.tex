@@ -16,7 +16,7 @@ használunk.
         folyamatokban lévő különbségeket. Mivel vannak olyan támogatott platformok, amelyek
         kevésbé szokványos hardvereket igényelnek, és egy ilyen gépen nem történhet párhuzamosan
         több fordítás, ezért a ZBS-nek ezeket az erőforrásokat is kezelnie kell. }
-    \item[ZTS] {asd }
+    \item[Zorp Test Suite (ZTS)] {asd }
     \item[git] {A git már egy nagy múltra visszatekintő (először 2005-ben adták ki), eredetileg a
         Linux kernel fejlesztését segítő, elosztott verziókezelő rendszer. Elosztottságának
         köszönhetően a nyílt forráskódú szoftverek világában az egyik legnagyobb mértékben
@@ -138,14 +138,6 @@ meghatározhatjuk azokat a tevékenységeket, amelyeket a \emph{rendszernek tilt
 \end{figure}
 
 \FloatBarrier
-% \subsection{ISO 27000-as család}
-% \subsubsection{ISO 27001:2013}
-% Ellentétben a korábbi megközelítésekkel, az \emph{ISO 27001}-es szabvány 
-% 
-% Habár elsőre nem tűnik indokoltnak a megemlítése, elég csupán arra gondolnunk, hogy egy termék
-% fejlesztésekor elvárhatjuk, hogy a belső infrastruktúránk biztonságos.  Ahogy a cég (és ezzel együtt
-% az infrastruktúra) növekszik, egyre inkább fontossá válik egy olyan kész keret bevezetése, amelyet
-% felhasználva biztonságosabb rendszert építhetünk.
 
 \section{Common Criteria}
 
@@ -234,7 +226,22 @@ esetén is még gazdaságos lehet, mivel habár szigorú, speciális tudást kev
     \item[félformális]{Olyan korlátozott szintaxisú nyelvezet, amelynél a szemantika előre
         definiált, például ilyen lehet az UML osztálydiagramja.}
 \end{description}
+
+Az \emph{EAL4}-hez képest úgy növeli a bizonyosságot, hogy:
+\begin{itemize}
+    \item biztosítani kell a moduláris biztonsági funkciók terveit,
+    \item olyan független sérülékenységi analízisre van szükség, amely képes demonstrálni a közepes
+        kapacitású támadó elleni ellenállást,
+    \item átfogó 
+\end{itemize}
+
 \subsubsection{EAL6 - formálisan verifikált}
+
+\begin{itemize}
+    \item strukturált fejlesztési folyamatra,
+    \item felügyelt fejlesztői környezetre,
+    \item teljes automatizációra
+\end{itemize}
 \subsubsection{EAL7 - formálisan verifikált}
 \begin{description}
     \item[formális]{Olyan félformális nyelvezet, melynek szemantikája megalapozott matematikai
