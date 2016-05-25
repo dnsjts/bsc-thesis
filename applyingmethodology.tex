@@ -15,10 +15,6 @@ szükséges.
 A kiértékelési komponens (ALC\_FLR osztály) szintezésére igaz, hogy a magasabb szinteken
 szigorúbbak a hibakezelési folyamatok, és az irányelvek.
 
-Mivel a három szint kezelése lényegében azonos eszközöket fog igénybe venni, ezért egy
-lépésben a legmagasabbat is megvalósíthatjuk, így a köztes lépések megvalósításának tanulmányozása
-nem hordozna többletértéket.
-
 \subsection{ALC\_FLR.1 - Basic flaw remediation}
 \begin{quote}
     \begin{description}
@@ -42,6 +38,10 @@ hibajegyeket és az azokhoz kapcsolódó információkat tudjuk úgy tárolni, h
 megtalálható legyen, ezáltal elkerülve azt a szerencsétlen eseményt, hogy egy biztonsági résről
 egyszerűen elfeledkezünk.
 
+Mivel a hibajegyek kezelésére eleve használunk \emph{JIRA}-t, ezért ha ott felvesszük a ,,biztonsági
+rés'' hibajegytípust, és annak kötelező mezőinek megjelöljük a követelmények között listázott
+elemeket máris teljesítettük ezt a pontot.
+
 \subsection{ALC\_FLR.2 - Flaw reporting procedures}
 \begin{quote}
     \begin{description}
@@ -60,7 +60,25 @@ egyszerűen elfeledkezünk.
             report to the developer any suspected security flaws in the TOE.}
     \end{description}
 \end{quote}
-\todo[inline]{Célja a flaw reporting procedures-nek}
+
+A \emph{Flaw reporting procedures} célja röviden, hogy lehetővé tegye a \emph{TOE} felhasználói
+számára, hogy biztonsági hibákat jelenthessenek be, és a fejlesztő és a bejelentő felhasználó
+között az információáramlás gördülékenyen történjen.
+
+Esetünkben a legegyszerűbb megoldás az lenne, ha a belső \emph{JIRA}-nak lenne egy külső
+felhasználók számára elérhető interfésze is (természetesen ekkor figyelembe kell venni a bizalmasabb
+információk védelmét). Ekkor a hibajavítás folyamata érdemben nem változik, a szigorúbb követelmény
+nem hordoz lényeges nehézséget, csupán a JIRA használatát kell leírnunk úgy, hogy egy tetszőleges
+felhasználó is gond nélkül megérthesse.
+
+A \emph{ALC\_FLR.2.7C} pontja szerint meg kell akadályoznunk, hogy a javítás során nem hozunk létre
+új biztonsági réseket. Habár a teljesen új rések ellen nem tudunk teljes mértékben védekezni, hiszen
+akkor azt a rendes fejlesztésre alkalmazva teljesen meg tudnánk akadályozni azok létrejöttét.
+Közelítésként védőhálóinkat úgy határoznám meg, hogy legyen a javításokkor fokozott szakmai
+lektorálás, hozzunk létre automatikus teszteseteket a régebbi hibákra regressziós hibák elkerülése
+érdekében, és fokozzuk az olyan programok automatikus használatát, amelyek potenciális
+sérülékenységeket fedhetnek fel, mint a \emph{fuzzer}ek (például: \emph{American fuzzy lop}),
+statikus analizálók.
 
 \subsection{ALC\_FLR.3 - Systematic flaw remediation}
 
@@ -78,10 +96,6 @@ Az előző szinthez képes az alábbi szempontok adódtak hozzá a jelenlegi szi
     \end{description}
 \end{quote}
 \todo[inline]{Célja a systematic flaw remediationnak.}
-
-\subsection{Flaw remediation megvalósítása}
-
-\todo[inline]{Procedúra JIRA-ba bevezetve}
 
 \section{Fejlesztési- és karbantartási folyamatok (ALC\_LCD)}
 Ez a szekció megmutatja, hogy a jelenlegi, gyengén irányított folyamatainkat miért lenne előnyös
