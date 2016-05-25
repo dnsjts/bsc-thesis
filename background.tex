@@ -55,7 +55,7 @@ egyszerű \emph{code beautifier} figyelemfelkeltőbbé tette volna azáltal, hog
 \end{itemize}
 , amelyből következik, hogy
 \begin{itemize}
-    \item a saját eszközök belső működéséhez kevesen értenek.
+    \item a saját eszközök (főként: ZBS) belső működéséhez kevesen értenek.
 \end{itemize}
 Ezért ennek a területnek definíció szerint alacsony a \emph{busz faktora}, amely hosszabb távon
 nézve kockázatos mind biztonsági (szélsőséges esetben egy ember ismer egy rendszert igazán, így az
@@ -114,12 +114,11 @@ mentén:
     \caption{Példa }
 \end{figure}
 
-
 Az alábbi szempontok segíthetnek eldönteni, hogy megéri-e foglalkozni a védelem kialakításával,
 szem előtt tartva, hogy mit feltételezünk a támadóról.
 
 Habár a módszer kellően könnyedén értelmezhető (hiszen csupán egy fát használ) és könnyedén
-alkalmazható, számunkra kevésbé használható, hiszen 
+alkalmazható, számunkra kevésbé használható, hiszen
 \begin{itemize}
     \item{nem kellően széleskörű,}
     \item{megoldásokat egyáltalán nem szolgáltat,}
@@ -139,14 +138,14 @@ meghatározhatjuk azokat a tevékenységeket, amelyeket a \emph{rendszernek tilt
 \end{figure}
 
 \FloatBarrier
-\subsection{ISO 27000-as család}
-\subsubsection{ISO 27001:2013}
-Ellentétben a korábbi megközelítésekkel, az \emph{ISO 27001}-es szabvány 
-
-Habár elsőre nem tűnik indokoltnak a megemlítése, elég csupán arra gondolnunk, hogy egy termék
-fejlesztésekor elvárhatjuk, hogy a belső infrastruktúránk biztonságos.  Ahogy a cég (és ezzel együtt
-az infrastruktúra) növekszik, egyre inkább fontossá válik egy olyan kész keret bevezetése, amelyet
-felhasználva biztonságosabb rendszert építhetünk.
+% \subsection{ISO 27000-as család}
+% \subsubsection{ISO 27001:2013}
+% Ellentétben a korábbi megközelítésekkel, az \emph{ISO 27001}-es szabvány 
+% 
+% Habár elsőre nem tűnik indokoltnak a megemlítése, elég csupán arra gondolnunk, hogy egy termék
+% fejlesztésekor elvárhatjuk, hogy a belső infrastruktúránk biztonságos.  Ahogy a cég (és ezzel együtt
+% az infrastruktúra) növekszik, egyre inkább fontossá válik egy olyan kész keret bevezetése, amelyet
+% felhasználva biztonságosabb rendszert építhetünk.
 
 \section{Common Criteria}
 
@@ -156,7 +155,7 @@ a \emph{Trusted Computer System Evaluation Criteria (TCSEC)}-t, és a
 \emph{Canadian Trusted Computer Product Evaluation Criteria (CTCPEC)}-t) kívánta egyesíteni, ezáltal
 elkerülve a korábbi ismételt kiértékeléseket egy nemzetközi piacra szánt termék esetén.  Az első
 végleges változatát 1994-ben adták ki, 1999-ben a \emph{2.1}-es verziója az \emph{ISO/IEC 15408}-as
-szabvánnyá vált. Legfrissebb változata jelenleg a \emph{3.1 rev. 4}-es.
+szabvánnyá vált. Legfrissebb változata a \emph{3.1 rev. 4}-es.
 
 \subsection{Terminológia}
 
@@ -171,7 +170,9 @@ szabvánnyá vált. Legfrissebb változata jelenleg a \emph{3.1 rev. 4}-es.
         a TOE környezetével kapcsolatban. Egy \emph{Security Target} megvalósíthat több
         \emph{Protection Profile}-t, azaz a \emph{PP} kvázi az \emph{ST} sablonjaként szolgál. }
     \item[Secutiry Functional Requirement (SFR)] { }
-    \item[Security Assurance Requirement (SAR)] { }
+    \item[Security Assurance Requirement (SAR)] { Annak egy szabványosított leírása, hogy milyen
+        intézkedéseket tettünk a fejlesztés során annak érdekében, hogy a \emph{TOE} teljesítse az
+        \emph{SFR}-eket.}
     \item[Evaluation Assurance Level (EAL)]{Evaluation Assurance Level - a követelmények
         szigorúságának számszerűsített értéke, lásd később.}
 \end{description}
@@ -201,9 +202,42 @@ A biztosított dokumentációk területén annyi változás történt, hogy a sp
 részletesebbnek kell lennie, tartalmaznia kell egy áttekintést a vizsgált termék architektúrájáról,
 továbbá demonstrációt, hogy a vizsgált termék képes ellenállni korlátozott kapacitású támadó ellen.
 
-\subsubsection{EAL3 - metodologikusan tesztelt és ellenőrzött}
-\subsubsection{EAL4 - formálisan verifikált}
-\subsubsection{EAL5 - formálisan verifikált}
+\subsubsection{EAL3 - módszeresen tesztelt és ellenőrzött}
+Ez a szint lehetővé teszi, 
+Annak érdekében, hogy megérthessük a TOE biztonsági működését, a biztosított dokumentációnak
+tartalmaznia kell az előző szintnél részletesebb architekturális leírást TOE-ről.
+További előrelépést jelent az \emph{EAL2}-höz képest, hogy
+\begin{itemize}
+    \item a biztonsági funkcionalitást átfogóbban kell tesztelni, azaz ott a tesztlefedettségnek
+        nagyobbnak kell lennie, és
+    \item olyan folyamatokat és szabályozókat kell bevezetni, amelyekkel minimalizálni tudjuk a
+        termékfejlesztés közbeni szabotázs lehetőségét.
+\end{itemize}
+
+\subsubsection{EAL4 - módszeresen tervezett, tesztelt és lektorált}
+
+Az \emph{EAL3}-hoz képest úgy növeli a bizonyosságot, hogy:
+\begin{itemize}
+    \item a TOE biztonsági funkcionalitásához kapcsolodó implementáció reprezentációját
+        (azaz a forráskódját) biztosítani kell,
+    \item az előző szinten bevezetett szabotázst megakadályozó mechanizmusokat/folyamatokat
+        fejleszteni kell, főként erősebb automatizálással,
+    \item a TOE felépítésének modulárisnak kell lennie, és erről egy átfogó képet kell adni, és
+    \item az interfész specifikáltságának teljesnek kell lennie.
+\end{itemize}
+
+Általában az \emph{EAL4} szint az a legmagasabb szint elérendő szint, amely egy már meglévő termék
+esetén is még gazdaságos lehet, mivel habár szigorú, speciális tudást kevésbé igényel.
+
+\subsubsection{EAL5 - félformálisan tervezett és tesztelt}
+\begin{description}
+    \item[félformális]{Olyan korlátozott szintaxisú nyelvezet, amelynél a szemantika előre
+        definiált, például ilyen lehet az UML osztálydiagramja.}
+\end{description}
 \subsubsection{EAL6 - formálisan verifikált}
 \subsubsection{EAL7 - formálisan verifikált}
+\begin{description}
+    \item[formális]{Olyan félformális nyelvezet, melynek szemantikája megalapozott matematikai
+        koncepciókon alapul.}
+\end{description}
 
