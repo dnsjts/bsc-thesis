@@ -186,7 +186,7 @@ szabvánnyá vált. Legfrissebb változata a \emph{3.1 rev. 4}-es.
         intézkedéseket tettünk a fejlesztés során annak érdekében, hogy a \emph{TOE} teljesítse az
         \emph{SFR}-eket.}
     \item[Evaluation Assurance Level (EAL)]{Evaluation Assurance Level - a követelmények
-        szigorúságának számszerűsített értéke, lásd később.}
+        szigorúságának számszerűsített értéke, az egyes szintek jelentését lásd alább.}
 \end{description}
 
 \subsection{Az egyes EAL szintek jelentései}
@@ -257,15 +257,19 @@ a bizonyosságot:
 \end{itemize}
 
 \subsubsection{EAL6 - formálisan verifikált}
+Az \emph{EAL6} úgy növeli a bizonyosságot az \emph{EAL5}-höz képest, hogy megköveteli félformálisan
+leírt funkcionális specifikációt és TOE , a biztonsági funkcióknak nem csak modulárisnak, hanem
+\emph{egyszerűnek és réteges felépítésű}nek kell lennie, és a TOE biztonsági
+\todo[inline]{policy}-jának egy formális modellre kell épülnie.
+A további minőségbiztosítás érdekében strukturált fejlesztési folyamatra, és teljes automatizálásra
+van szükség.
 
-\begin{itemize}
-    \item strukturált fejlesztési folyamatra,
-    \item felügyelt fejlesztői környezetre,
-    \item teljes automatizációra
-\end{itemize}
-\subsubsection{EAL7 - formálisan verifikált}
+\subsubsection{EAL7 - formálisan verifikált dizájn}
 \begin{description}
     \item[formális]{Olyan félformális nyelvezet, melynek szemantikája megalapozott matematikai
         koncepciókon alapul.}
 \end{description}
+
+
+
 

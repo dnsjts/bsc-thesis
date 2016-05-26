@@ -197,7 +197,6 @@ Amennyiben csak jól meghatározott, autorizált változtatásokat engedélyezü
 termékünk integritását.
 
 \subsection{Configuration Management Scope (ALC\_CMS)}
-\todo[inline]{Egyes pontok kifejtése}
 Természetesen mielőtt egyáltalán bevezetnénk a \emph{CM}-et, szükséges meghatározni annak hatókörét.
 Ez a szekció meghatározza azokat a dolgokat, amelyeket feltétlenül szükséges a \emph{CM} rendszerben
 kezelnünk, a szinteket is ez határozza meg (azaz magasabb szinten többet kell lefednie
@@ -215,7 +214,12 @@ a \emph{CM}-nek).
     \end{description}
 \end{quote}
 
-
+Ennek a szintnek a létjogosultsága triviális, hiszen a \emph{CM}-nek definíció szerint tartalmaznia
+kell a \emph{TOE}-t, hiszen annak integritásának megőrzése a CM elsődleges feladata. Az
+\emph{evaluation evidence}-ek követése azért fontos, mivel a követelmények teljesülését be kell
+tudni mutatni. Ezeknek a bizonyítékoknak szoros kapcsolatban kell lenniük a TOE-val annak elkerülése
+érdekében, hogy olyan szempont teljesülését állítsuk, amely egy régebbi TOE-ban valóban teljesült,
+de egy újabb verzióban már nem.
 
 \pagebreak[3]
 \subsubsection{ALC\_CMS.2 - Parts of the TOE CM coverage}
@@ -227,6 +231,8 @@ a \emph{CM}-nek).
             indicate the developer of the item.}
     \end{description}
 \end{quote}
+
+\todo[inline]{Egyes pontok kifejtése}
 
 \pagebreak[3]
 \subsubsection{ALC\_CMS.3 - Implementation representation CM coverage}
@@ -389,7 +395,8 @@ a fejlesztésre, amely röviden az alábbi lépésekből áll:
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth, height=0.25\textheight, keepaspectratio]{figures/forkingworkflow.png}
-    \caption{Példa az egyes kontribútorok és a \emph{blessed repository} viszonyáról \cite{ForkingWorkflow}.}
+    \caption{Példa az egyes kontribútorok és a \emph{blessed repository} viszonyáról
+    \cite{ForkingWorkflow}.}
 \end{figure}
 \FloatBarrier
 
@@ -421,9 +428,9 @@ megegyező munkát végző géppel, főként az amúgy könnyedén automatizálh
 az a követelményekből látszik, a \emph{Common Criteria} csak az autorizált változtatások bekerülését
 szabályozná automatikusan, viszont érdemes továbbgondolni a feladatot, mivel ha az \emph{4.8C}-ben
 említett pontot kellőképpen formálisan írjuk le, akkor abból könnyedén programkód készülhet, és
-végsősoron az ellenőrzések egy részhalmazát automatikusan megtehetjük.
-Az alosztály továbbá megköveteli a TOE automatikus létrehozhatóságát is. Ez összhangban áll a
-\emph{Continuous Integration} használatával. \todo[inline]{moar}
+végsősoron az ellenőrzések egy részhalmazát automatikusan megtehetjük.  Az alosztály továbbá
+megköveteli a TOE automatikus létrehozhatóságát is. Ez összhangban áll a \emph{Continuous
+Integration} használatával. \todo[inline]{moar}
 
 A \emph{syslog-ng} közösség által fejlesztett változatánál a legnagyobb elmaradás az elfogadás
 szükséges feltételeinek dokumentálása, és az automatizálható ellenőrzések automatizálása.
@@ -499,8 +506,6 @@ hogy dokumentáljuk, és a dokumentáció alapján szállítsuk a TOE-t), a seg�
         \item avoiding the TOE being delayed or stopped during distribution.
     \end{itemize}
 \end{quote}
-
-
 
 \todo[inline]{Producttól elkérni a folyamatot}
 
