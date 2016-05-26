@@ -101,10 +101,9 @@ Az előző szinthez képes az alábbi szempontok adódtak hozzá a jelenlegi szi
 Ez a szekció megmutatja, hogy a jelenlegi, gyengén irányított folyamatainkat miért lenne előnyös
 magasabb szinten felügyelni, és milyen kezdeti lépések lennének megfelelőek ennek elérése irányában.
 
-A \emph{Common Criteria} szempontjából ez azért fontos kérdés, mivel ekkor a
-\emph{funkcionális biztonsági követelmények (Security Functional Requirements, SFR)} megvalósulása
-egyáltalán nem garantált, amely nyilvánvalóan elfogadhatatlan, mivel azért (is) vezettük be a
-\emph{Common Criteria}-t, hogy a termékünk biztonságosabb legyen.
+A \emph{Common Criteria} szempontjából ez azért fontos kérdés, mivel ekkor a \emph{SFR-ek}
+megvalósulása egyáltalán nem garantált, amely nyilvánvalóan elfogadhatatlan, mivel azért (is)
+vezettük be a \emph{Common Criteria}-t, hogy a termékünk biztonságosabb legyen.
 
 A folyamat gyakorlati alkalmazásának egy lényeges követelménye, hogy a fejlesztést ne akadályozza
 számottevően, mivel ilyenkor fennáll a motiváció, hogy ezeket valamilyen módon megkerüljük. Ezzel
@@ -220,6 +219,11 @@ kell a \emph{TOE}-t, hiszen annak integritásának megőrzése a CM elsődleges 
 tudni mutatni. Ezeknek a bizonyítékoknak szoros kapcsolatban kell lenniük a TOE-val annak elkerülése
 érdekében, hogy olyan szempont teljesülését állítsuk, amely egy régebbi TOE-ban valóban teljesült,
 de egy újabb verzióban már nem.
+Ez az első elem, amelyet felvettünk a CM-be, ezért eddig csak általánosságban beszéltünk róla,
+és nem definiáltuk, hogy konkrétabban milyen rendszerek alkotják a CM-et.  Mivel maga a kész TOE egy
+bináris, ezért a követésére egy \emph{binary repository manager}-re (vagy \emph{artifact
+repository}-ra) van szükségünk. Az egyedi azonosításhoz használhatjuk a TOE egyedi cimkéjét, amelyet
+az 3.3.2.1-es alszekcióban részletesebben kifejtjük.
 
 \pagebreak[3]
 \subsubsection{ALC\_CMS.2 - Parts of the TOE CM coverage}
