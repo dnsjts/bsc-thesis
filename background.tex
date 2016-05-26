@@ -2,7 +2,27 @@
 
 \section{A \emph{syslog-ng}-ről}
 
-\subsection{A fejlesztéshez használt technológiák}
+A \emph{syslog-ng} egy 1998 óta fejlesztett naplózó \emph{daemon}. Eredetileg nyílt forráskódú
+szoftverként indult, de időközben létrejött egy kereskedelmi változata is, és habár a két kódbázis
+között még erős a kapcsolat, de gyakorlatilag a különbségük annyira jelentős, hogy inkább
+tekinthetjük őket két, különálló terméknek, melyek újraegyesítése jelenleg is folyamatban van.
+
+A szoftver gerince \emph{C} nyelven íródott, a modulok fejlesztése pedig történhet más, magasabb
+szintű nyelveken is. Az alacsony szintű nyelven megírt gerinc annak is a következménye, hogy
+a szoftver teljesítménye mindig is elősdleges szempont volt.
+
+A technológiai adósságok megfelelő kezelése még az újonnan felépített szoftvernél sem mondható
+triviális feladatnak, de esetünkben a
+\begin{itemize}
+    \item hosszú múlttal rendelkező (tehát hosszú idő alatt gyűlhet/kamatozhat az adósság),
+    \item teljesítménycentrikus (azaz nemtriviális (mikro)optimalizációkat engedélyező kód), és
+    \item alacsony szintű nyelven írt (ahol a helyes működés eléréséhez magas szakértelem szükséges)
+\end{itemize}
+szoftver miatt ez nehéz feladatnak tűnik. Másik jellemzője a technológiai adósságnak, hogy már csak
+akkor válik érezhetővé a jelenléte, amikor az már jelentős mértékben összegyűlt.  Ilyenkor érdemes
+megállni egy pillanatra, és az adósságot törleszteni. Ennek érkezett el az ideje.
+
+\subsection{A fejlesztéshez használt segédeszközök}
 
 Ebben az alszekcióban szeretném bemutatni azokat az eszközöket, amelyek a fejlesztéshez nap mint nap
 használunk.
@@ -218,8 +238,8 @@ Az \emph{EAL3}-hoz képest úgy növeli a bizonyosságot, hogy:
     \item az interfész specifikáltságának teljesnek kell lennie.
 \end{itemize}
 
-Általában az \emph{EAL4} szint az a legmagasabb szint elérendő szint, amely egy már meglévő termék
-esetén is még gazdaságos lehet, mivel habár szigorú, speciális tudást kevésbé igényel.
+Általában az \emph{EAL4} szint az a legmagasabb elérendő szint, amely egy már meglévő termék esetén
+is még gazdaságos lehet, mivel habár szigorú, speciális tudást kevésbé igényel.
 
 \subsubsection{EAL5 - félformálisan tervezett és tesztelt}
 \begin{description}
@@ -227,7 +247,8 @@ esetén is még gazdaságos lehet, mivel habár szigorú, speciális tudást kev
         definiált, például ilyen lehet az UML osztálydiagramja.}
 \end{description}
 
-Az \emph{EAL4}-hez képest úgy növeli a bizonyosságot, hogy:
+Az \emph{EAL5} az \emph{EAL4}-hez képest az alábbi követelmények betartatásával növeli
+a bizonyosságot:
 \begin{itemize}
     \item biztosítani kell a moduláris biztonsági funkciók terveit,
     \item olyan független sérülékenységi analízisre van szükség, amely képes demonstrálni a közepes
