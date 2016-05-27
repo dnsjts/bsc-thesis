@@ -1,4 +1,4 @@
-\chapter{A metodologia alkalmazása a termékfejlesztési folyamatokra}
+\chapter{A metodológia alkalmazása a termékfejlesztési folyamatokra}
 
 A \emph{Common Criteria} széleskörű követelményrendszerét olvasva könnyedén a bőség zavarával
 küzdhetünk a megfelelő kezdési pont kiválasztásakor. Ez a fejezet azokat a komponenseket szedte egy
@@ -336,6 +336,10 @@ Alternatív módszerek lehetnek az alábbiak:
         \emph{<commit-tól a szülők felé lépdelve az első elérhető tag>-<az elért tagtől hány commit
             történt a paraméterben kapott commit-ig>-<verziókezelőt leíró karakter><paraméterben
         átadott commit commitid-ja>}
+    \item előfordulhat, hogy nem tekinthetjük a \emph{git}-et függőségnek, ilyenkor
+        a \emph{commitid} létrehozásához hasonlóan generálhatunk egy \emph{hash}-t
+        a \emph{configuration item}-ből, amely ugyan nem garantáltan egyedi, de jó hash függvény
+        esetén az ütközés esélye elhanyagolható.
 \end{itemize}
 
 \pagebreak[3]
@@ -401,7 +405,8 @@ a fejlesztésre, amely röviden az alábbi lépésekből áll:
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=\textwidth, height=0.25\textheight, keepaspectratio]{figures/forkingworkflow.png}
+    \includegraphics[width=\textwidth, height=0.25\textheight,
+    keepaspectratio]{figures/forkingworkflow.png}
     \caption{Példa az egyes kontribútorok és a \emph{blessed repository} viszonyáról
     \cite{ForkingWorkflow}.}
 \end{figure}
@@ -461,8 +466,6 @@ Ellenőrzések esetén így megtalálhatjuk az első olyan \emph{commit}-ot, ame
 nem megfelelő, transzformációk esetén pedig \emph{commit}-ról \emph{commit}-ra tehetünk javaslatokat
 a javításra.
 
-\todo[inline]{Tool beillesztése?}
-
 Fontos megjegyezni, hogy az eszköz hatékony használatához elengedhetetlen a \emph{commit}-ok
 jólszervezettsége, hiszen minél kisebb egy módosítás, annál könnyebb a problémáit észrevenni,
 illetve ellenőrizni, hogy az eszközeink úgy módosították a kódot, ahogy azt elvártuk.
@@ -514,18 +517,28 @@ hogy dokumentáljuk, és a dokumentáció alapján szállítsuk a TOE-t), azonba
     \end{itemize}
 \end{quote}
 
-\todo[inline]{Producttól elkérni a folyamatot}
+Nagyvonalakban az alábbi folyamat során kerül egy kiadhatónak jelölt változat a felhasználók
+számára:
+\begin{enumerate}
+    \item Megkérjük a ZBS-t, hogy állítson elő az adott kiadásból egy csomagot.
+    \item Az exportált csomagot egy adott belső gépre átmásoljuk.
+    \item Egy ütemezett feladat (\emph{cronjob}) feltölti egy \emph{Amazon Cloud}-ban található
+        weboldalra.
+    \item Miután minden szükséges információt megadott és ellenőrzött, a \emph{Product owner}
+        engedélyezi a letölthetőséget.
+\end{enumerate}
 
-Számunkra az egyik legfontosabb a TOE meghamisításnak elkerülése. Ennek egy tipikus megvalósítása
-az, amikor egy adott program letöltési lehetősége mellett megtalálható egy \emph{hash}, vagy
-ellenőrzőösszeg is. Az ilyen megoldási kísérlet mögött az lehet a támadóról alkotott modell, hogy
-képes a feltöltött szoftvert módosítani, de a mellette található Ennél egy robosztusabb megoldás
-a szoftver digitális aláírása, és az aláírás ellenőrzésére szolgáló publikus kulcs megadása.
-A robosztusság növelhető, ha a publikus kulcsot egy, a terméktől teljesen független infrastruktúra
-szolgálja ki, mint például a \emph{Pretty Good Privacy (PGP)} esetén a \emph{keyserver}-ek.
-Sajnos ez a módszer képtelen kivédeni azt, ha a támadó egyszerűen letörli az aláírást, és a
-használók megbíznak az aláírás nélküli szoftverben, ezért egy másik csatornán értesíteni kell őket
-arról, hogy akkor, és csak akkor használják a szoftvert, ha az aláírt forrásból származik.
+Számunkra az egyik legfontosabb szempont a TOE meghamisításnak elkerülése. Ennek egy tipikus
+megvalósítása az, amikor egy adott program letöltési lehetősége mellett megtalálható egy
+\emph{hash}, vagy ellenőrzőösszeg is. Az ilyen megoldási kísérlet mögött az lehet a támadóról
+alkotott modell, hogy képes a feltöltött szoftvert módosítani, de a mellette található Ennél egy
+robosztusabb megoldás a szoftver digitális aláírása, és az aláírás ellenőrzésére szolgáló publikus
+kulcs megadása.  A robosztusság növelhető, ha a publikus kulcsot egy, a terméktől teljesen független
+infrastruktúra szolgálja ki, mint például a \emph{Pretty Good Privacy (PGP)} esetén
+a \emph{keyserver}-ek.  Sajnos ez a módszer képtelen kivédeni azt, ha a támadó egyszerűen letörli az
+aláírást, és a használók megbíznak az aláírás nélküli szoftverben, ezért egy másik csatornán
+értesíteni kell őket arról, hogy akkor, és csak akkor használják a szoftvert, ha az aláírt forrásból
+származik.
 
 A jelenlegi disztribúciós folyamat valamilyen szinten biztosítja a túlterheléses támadás elleni
 védelmet azáltal, hogy ennek a problémának a megoldását egy nagyobb rendszerre (Amazon Web Services)
