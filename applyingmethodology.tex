@@ -497,7 +497,7 @@ utasítások, amelyeket végrehajtva a forráskódból futtatható szoftvert ál
 pedig a korábban említett \emph{CM} rendszer már foglalkozott.
 
 Habár a Common Criteria eléggé szűkszavúan fogalmazza meg a követelményeket (csupán annyit ír elő,
-hogy dokumentáljuk, és a dokumentáció alapján szállítsuk a TOE-t), a segítségül szolgáló
+hogy dokumentáljuk, és a dokumentáció alapján szállítsuk a TOE-t), azonban a segítségül szolgáló
 \emph{Application notes} alatt találhatunk gondolatébresztő szempontokat:
 
 \begin{quote}
@@ -515,6 +515,33 @@ hogy dokumentáljuk, és a dokumentáció alapján szállítsuk a TOE-t), a seg�
 \end{quote}
 
 \todo[inline]{Producttól elkérni a folyamatot}
+
+Számunkra az egyik legfontosabb a TOE meghamisításnak elkerülése. Ennek egy tipikus megvalósítása
+az, amikor egy adott program letöltési lehetősége mellett megtalálható egy \emph{hash}, vagy
+ellenőrzőösszeg is. Az ilyen megoldási kísérlet mögött az lehet a támadóról alkotott modell, hogy
+képes a feltöltött szoftvert módosítani, de a mellette található Ennél egy robosztusabb megoldás
+a szoftver digitális aláírása, és az aláírás ellenőrzésére szolgáló publikus kulcs megadása.
+A robosztusság növelhető, ha a publikus kulcsot egy, a terméktől teljesen független infrastruktúra
+szolgálja ki, mint például a \emph{Pretty Good Privacy (PGP)} esetén a \emph{keyserver}-ek.
+Sajnos ez a módszer képtelen kivédeni azt, ha a támadó egyszerűen letörli az aláírást, és a
+használók megbíznak az aláírás nélküli szoftverben, ezért egy másik csatornán értesíteni kell őket
+arról, hogy akkor, és csak akkor használják a szoftvert, ha az aláírt forrásból származik.
+
+A jelenlegi disztribúciós folyamat valamilyen szinten biztosítja a túlterheléses támadás elleni
+védelmet azáltal, hogy ennek a problémának a megoldását egy nagyobb rendszerre (Amazon Web Services)
+hárítja át, ezáltal növelve a túlterheléshez szükséges erőforrásokat, továbbá a magas rendelkezésre
+állás az Amazon számára magas prioritású, így nagyobb valószínűséggel tudják a folyamatban lévő
+támadásokat enyhíteni.
+
+A fals verzió publikálása ellen részben védekezünk úgy, hogy a belső rendszerekből automatikus
+módszerekkel kerül az \emph{AWS}-be, de ez még messze van a teljesen automatikus, ,,egygombos''
+kiadástól, ezért jelenleg egy viszonylag magasabb beosztású, belső támadó sikeres lehet (amelynek a
+valószínűsége még az egyszerű belső támadónál is kisebb, ezért ennek a megoldása jelenleg nem
+kritikus).
+
+Az, hogy az evaluált verzió kerüljön a felhasználóhoz, könnyedén megoldható akkor, ha a termék
+verziózása tényleg egyedi (lásd: ALC\_CMC.1), és a felhasználó ezt le tudja kérdezni, és össze
+tudja hasonlítani az evaluált verzióval.
 
 \section{Development Security}
 
