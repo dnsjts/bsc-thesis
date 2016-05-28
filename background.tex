@@ -11,8 +11,13 @@ A szoftver gerince \emph{C} nyelven íródott, a modulok fejlesztése pedig tör
 szintű nyelveken is. Az alacsony szintű nyelven megírt gerinc annak is a következménye, hogy
 a szoftver teljesítménye mindig is elsődleges szempont volt.
 
-A technológiai adósságok megfelelő kezelése még az újonnan felépített szoftvernél sem mondható
-triviális feladatnak, de esetünkben a
+A technológiai adósságok\footnote{Egy adott problémára adható megoldások az ,,egyszerű, de nem
+    igényes'' -- a ,,letisztult, igényes, de munkaigényes'' skálán helyezkednek el.
+    \emph{Technológiai adósság}ot akkor veszünk fel, amikor a alacsonyabb minőségű megoldást
+    választunk annak gyors létrejöttéért, és minden egyes alkalommal, amikor ezzel a kóddal újra
+foglalkozni kell (további fejlesztéseket, karbantartást kell eszközölni rajta), többletmunkával
+fizetünk. } megfelelő kezelése még az újonnan felépített szoftvernél sem mondható triviális
+feladatnak, de esetünkben a
 \begin{itemize}
     \item hosszú múlttal rendelkező (tehát hosszú idő alatt gyűlhet/kamatozhat az adósság),
     \item teljesítménycentrikus (azaz nemtriviális (mikro)optimalizációkat engedélyező kód), és
@@ -111,8 +116,8 @@ Criteria}-t, \emph{Attack trees}-t, és \emph{Misuse cases}-t összehasonlító 
 
 \subsection{Attack trees}
 
-Az \emph{Attack trees} egy olyan módszer, amellyel egy adott támadást elemezhetünk egyszerűen, egy
-faként reprezentálva az alábbi szabályok mentén:
+Az \emph{Attack trees}\cite{schneier1999attack} egy olyan módszer, amellyel egy adott támadást
+elemezhetünk egyszerűen, egy faként reprezentálva az alábbi szabályok mentén:
 \begin{enumerate}
     \item A fa gyökerében az az esemény áll, amely bekövetkezésekor a támadást sikeresnek tekintjük.
     \item A szülő és a gyerek eseménye között az a kapcsolat, hogy a szülő eseménye akkor, és csak

@@ -23,6 +23,7 @@
 \usepackage{hyperref}
 \usepackage{placeins}
 \usepackage{wrapfig}
+\usepackage{sourcecodepro}
 
 %--------------------------------------------------------------------------------------
 % Main variables
@@ -34,6 +35,7 @@
 \newcommand{\viktanszek}{Hálózati Rendszerek és Szolgáltatások Tanszék}
 \newcommand{\vikdoktipus}{Szakdolgozat}
 \newcommand{\vikdepartmentr}{Bódis-Szomorú András}
+
 
 %--------------------------------------------------------------------------------------
 % Page layout setup
@@ -80,16 +82,16 @@
 % Set up listings
 %--------------------------------------------------------------------------------------
 \lstset{
-	basicstyle=\scriptsize\ttfamily, % print whole listing small
+	basicstyle=\tiny\ttfamily, % print whole listing small
 	keywordstyle=\color{black}\bfseries\underbar, % underlined bold black keywords
 	identifierstyle=, 					% nothing happens
-	commentstyle=\color{white}, % white comments
-	stringstyle=\scriptsize\sffamily, 			% typewriter type for strings
+	stringstyle=\tiny\ttfamily, 			% typewriter type for strings
 	showstringspaces=false,     % no special string spaces
 	aboveskip=3pt,
 	belowskip=3pt,
 	columns=fixed,
-	backgroundcolor=\color{lightgray},
+	breaklines=true,
+	frame=single
 } 		
 \def\lstlistingname{lista}	
 

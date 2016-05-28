@@ -186,7 +186,7 @@ meghozni (átment-e a módosítás a teszteken, vagy sem), illetve nem kell isme
 hogy mielőtt a tesztelőknek odaadnám a módosításaimat, létre kell hoznom egy teljes
 telepítőcsomagot, ha a \emph{JIRA} rákérdez az átmenet végrehajtása előtt, hogy milyen elérési
 útvonalon találja meg a generált telepítőcsomagot. Ez a megközelítés gyakorlatilag
-a \emph{fail-fast} \cite{FailFast} szoftverfejlesztési technika folyamatokra vetített változata.
+a \emph{fail-fast} \cite{shore2004fail} szoftverfejlesztési technika folyamatokra vetített változata.
 
 \pagebreak[3]
 \section{Configuration Management}
@@ -253,7 +253,8 @@ bölcsebb gondolatnak tűnik.  Az egyedi azonosításhoz használhatjuk a TOE eg
 Mint látható, csupán annyit változott a követelmény, hogy az implementációs reprezentációt (, azaz
 gyakorlatilag a termék forráskódját) \emph{CM}-ben kezeljük. Mivel már minden forráskódot
 a \emph{git} verziókezelővel követünk, ezért ha ezt a rendszert beleértjük a CM-be, akkor könnyedén
-teljesíthetjük ezt a követelményt.
+teljesíthetjük ezt a követelményt. (Természetesen ez csak azzal a kitétellel igaz, ha a \emph{git}
+rendelkezik a megfelelő képességekkel.)
 
 \pagebreak[3]
 \subsubsection{ALC\_CMS.4 - Problem tracking CM coverage}
@@ -288,10 +289,10 @@ generálása során, vagy ha ugyan az eszközök változásait követjük, de a 
 például egyes fordítói ellenőrzések kikapcsolásával, olyan hibákat engedhetünk a kódban, amelyeket
 már a fordítás során is észrevehettünk volna.
 
-Ezt a követelményt továbbfejleszthetjük úgy, hogy a \emph{Infrastructure as Code, IaC} paradigmát
-szem előtt tartva olyan formában írjuk le, amely alkalmas a fejlesztési környezet könnyű
-reprodukciójához. Ilyen például a \emph{syslog-ng} fordítására alkalmas \emph{Docker} konténert
-leíró \emph{Dockerfile}. \cite{syslogngenv}
+Ezt a követelményt továbbfejleszthetjük úgy, hogy a \emph{Infrastructure as Code, IaC}
+\cite{huttermann2012infrastructure} paradigmát szem előtt tartva olyan formában írjuk le, amely
+alkalmas a fejlesztési környezet könnyű reprodukciójához. Ilyen például a \emph{syslog-ng}
+fordítására alkalmas \emph{Docker} konténert leíró \emph{Dockerfile}. \cite{syslogngenv}
 
 Ennek a követelménynek a betartatásánál könnyedén túlzásokba is eshetünk úgy, hogy azt
 a környezetet, amelyben a implementációs reprezentáción dolgozunk, fejlesztőinek tekintjük, és
@@ -408,7 +409,7 @@ a fejlesztésre, amely röviden az alábbi lépésekből áll:
     \includegraphics[width=\textwidth, height=0.25\textheight,
     keepaspectratio]{figures/forkingworkflow.png}
     \caption{Példa az egyes kontribútorok és a \emph{blessed repository} viszonyáról
-    \cite{ForkingWorkflow}.}
+    \cite{driessen2010successful}.}
 \end{figure}
 \FloatBarrier
 
@@ -469,6 +470,10 @@ a javításra.
 Fontos megjegyezni, hogy az eszköz hatékony használatához elengedhetetlen a \emph{commit}-ok
 jólszervezettsége, hiszen minél kisebb egy módosítás, annál könnyebb a problémáit észrevenni,
 illetve ellenőrizni, hogy az eszközeink úgy módosították a kódot, ahogy azt elvártuk.
+
+Amint a lektorok elfogadták a módosítási javaslatot, és az egyes ellenőrzések sem találtak
+kivetnivalót benne, elfogadhatónak tekinthető az, és akár az ellenőrzést végző \emph{CI} rendszer
+automatikusan el is fogadhatja, amellyel az \emph{ALC\_CMC.4.4C} pontját teljesítettük.
 
 \subsubsection{ALC\_CMC.5 - Advanced support}
 \begin{quote}

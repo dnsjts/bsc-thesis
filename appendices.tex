@@ -8,3 +8,43 @@
 \numberwithin{figure}{section}
 \numberwithin{lstlisting}{section}
 %\numberwithin{tabular}{section}
+
+\section{Változtatások alkalmazása csak az újonnan beérkezett kódra}
+
+\begin{lstlisting}[language=python]
+#!/usr/bin/env python3
+
+import subprocess
+
+subprocess.run("find . -name '*.c' | xargs -n 1 clang-format -i && git commit --all --message Initial change", shell=True);
+exit(0);
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash]
+#!/bin/bash
+
+env SHELL="/bin/bash" GIT_SEQUENCE_EDITOR="sed -i '1s/^/exec .\\/initial.py\n/'" git rebase \
+    --interactive \
+    -X theirs \
+    --exec 'git diff HEAD^ HEAD --name-only | grep -P ".c$" | xargs -n 1 clang-format -i && git commit --all --fixup HEAD --no-edit || echo "Nothing to do."' \
+    $(git merge-base $1 HEAD);
+
+env SHELL="/bin/bash" GIT_SEQUENCE_EDITOR="sed -i '1s/pick/drop/'" git rebase \
+    --autosquash \
+    --interactive \
+    -X patience \
+    -X theirs \
+    $(git merge-base $1 HEAD);
+\end{lstlisting}
+
+A fenti kódrészlet annak az automatizmusnak a prototípusa, amely lehetővé teszi csak egy adott
+módosítás automatikus formázását (azaz jelenleg ez a transzformáció bele van égetve).
+Mint ahogy az látható, igazából ez csupán kettő interaktív \emph{git rebase}, amelyeknél megadtuk
+a \emph{merge} stratégiákat annak érdekében, hogy ne kelljen kézzel feloldani az esetleges
+konfliktusokat, és minden egyes \emph{commit} alkalmazása után lefuttatjuk a transzformációt,
+továbbá az első commit előtt a teljes kódbázisra is.
+A második \emph{rebase} a teljes kódbázisra futtatott transzformációt vonja vissza.
+
+Sajnos a minimális különbség előállítása még nem sikerült, ugyanis a második rebase nem vonja vissza
+teljesen a legelső transzformációt, így az eszköz alkalmazása felesleges módosításokat alkalmaz
+az új kódon. Ennek megoldása valószínűleg a felváltva használandó merge stratégiákban keresendő.
