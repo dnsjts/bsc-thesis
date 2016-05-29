@@ -16,8 +16,8 @@ A technológiai adósságok\footnote{Egy adott problémára adható megoldások 
     \emph{Technológiai adósság}ot akkor veszünk fel, amikor a alacsonyabb minőségű megoldást
     választunk annak gyors létrejöttéért, és minden egyes alkalommal, amikor ezzel a kóddal újra
 foglalkozni kell (további fejlesztéseket, karbantartást kell eszközölni rajta), többletmunkával
-fizetünk. } megfelelő kezelése még az újonnan felépített szoftvernél sem mondható triviális
-feladatnak, de esetünkben a
+fizetünk. \cite{magnusson2014technology}} megfelelő kezelése még az újonnan felépített szoftvernél
+sem mondható triviális feladatnak, de esetünkben a
 \begin{itemize}
     \item hosszú múlttal rendelkező (tehát hosszú idő alatt gyűlhet/kamatozhat az adósság),
     \item teljesítménycentrikus (azaz nemtriviális (mikro)optimalizációkat engedélyező kód), és
@@ -27,10 +27,12 @@ szoftver miatt ez nehéz feladatnak tűnik. Másik jellemzője a technológiai a
 akkor válik érezhetővé a jelenléte, amikor az már jelentős mértékben összegyűlt.  Ilyenkor érdemes
 megállni egy pillanatra, és az adósságot törleszteni. Ennek érkezett el az ideje.
 
+
+
 \subsection{A fejlesztéshez használt segédeszközök}
 
-Ebben az alszekcióban szeretném bemutatni azokat az eszközöket, amelyek a fejlesztéshez nap mint nap
-használunk.
+Ebben az alszekcióban szeretném bemutatni azokat a fontosabb eszközöket, amelyek a fejlesztéshez nap
+mint nap használunk.
 
 \begin{description}
     \item[JIRA] {Az Atlassian által fejlesztett, elsősorban hibajegyek kezelésére használatos
@@ -64,18 +66,22 @@ használunk.
 
 A teljesség igénye nélkül listázzuk a fejlesztést nehezítő, olykor értékes fejlesztői időt pazarló
 problémákat:
-\begin{itemize}
-    \item Lassú lektorálási folyamat a közösség által fejlesztett változatban.
-\end{itemize}
-Sikerült ennek néhány komponensét azonosítani, amelyek:
 
-\begin{itemize}
-    \item nincs a kód automatikusan formázva.
-\end{itemize}
-Érdekesség, hogy a \emph{CVE-2014-1266}\cite{cve20141266}, közismertebb nevén \emph{goto fail;} sérülékenységet egy
-egyszerű \emph{code beautifier} figyelemfelkeltőbbé tette volna azáltal, hogy a tabulálásokat
-(pontosabban fogalmazva \emph{indent}álásokat) helyessé tette volna.
+\subsubsection{Lassan haladó fejlesztés}
+Ez a probléma elsődlegesen a közösség által fejlesztett \emph{syslog-ng}-t érinti, azon belül is
+arra a kérdésre keressük a választ, hogy miért tart sokáig egy beérkezett kontribúció integrálása
+a kódbázisba. Ennek egy lehetséges magyarázata az, hogy nincsenek olyan automatikus ellenőrzések,
+amelyek a kontribútor számára azonnali visszajelzést ad a kontribúció minőségéről, a lektorok
+számára pedig ez felesleges kézi ellenőrzést jelent.
 
+Egyik lényeges ilyen automatizmus a kód stílusának ellenőrzése, amely biztosítja, hogy kód
+egységesen néz ki, és ha egy fejlesztő ezt már megszokta, akkor valamivel már otthonosabban mozog az
+ismeretlen kódban is.  Érdekesség, hogy a \emph{CVE-2014-1266}\cite{cve20141266}, közismertebb nevén
+\emph{goto fail;} sérülékenységet egy egyszerű \emph{code beautifier} figyelemfelkeltőbbé tette
+volna azáltal, hogy a tabulálásokat (pontosabban fogalmazva \emph{indent}álásokat) kijavította
+volna.
+
+\subsubsection{Belső eszközök problémája}
 \begin{itemize}
     \item Meredek tanulási görbe a belső eszközök használatánál.
 \end{itemize}
@@ -83,19 +89,21 @@ egyszerű \emph{code beautifier} figyelemfelkeltőbbé tette volna azáltal, hog
 \begin{itemize}
     \item a saját eszközök (főként: ZBS) belső működéséhez kevesen értenek.
 \end{itemize}
-Ezért ennek a területnek definíció szerint alacsony a \emph{busz faktora}, amely hosszabb távon
+Ezért ennek a területnek definíció szerint alacsony a \emph{busz faktor}a\footnote{\emph{busz
+    faktor:} egy (fejlesztő)csapaton belüli információ \emph{de}koncentráltságát jellemző mérőszám,
+    amely minél magasabb, annál jobb. Másképpen definiálva: legfejlebb hány ember veszíthető el úgy
+a csapatból, hogy az még ne omoljon össze az egyedek elvesztéséből fakadó információveszteség miatt.
+A definíció és az elnevezés közötti kapcsolat felfedezését az Olvasóra bízom.}, amely hosszabb távon
 nézve kockázatos mind biztonsági (szélsőséges esetben egy ember ismer egy rendszert igazán, így az
-ő módosításainak lektorálása nem hatékony), mind termelékenységi szempontból (hiszen ilyenkor
-ez az ember szűk keresztmetszetként viselkedik).
+ő módosításainak lektorálása nem hatékony), mind termelékenységi szempontból (hiszen ilyenkor ez az
+ember szűk keresztmetszetként viselkedik).
 
-\begin{itemize}
-    \item Törékeny fejlesztési infrastruktúra.
-\end{itemize}
-Ez leginkább abban mutatkozik meg, hogy vannak olyan fejlesztői gépek, amelyeknél azok létrehozási
-lépései elvesztek, illetve az idők során az azon végzett módosítások nem lettek megfelelően
-dokumentálva. Amennyiben ez a fejlesztés szempontjából egy kritikus gép, belátható, hogy az egy
-időzített bombaként viselkedik a rendszerben. Ennek a problémának egy tipikus áthidalása, ha az
-adott gépről létezik visszaállítható biztonsági mentés, hiszen ekkor egy jól működő állapotra
+\subsubsection{Törékeny fejlesztési infrastruktúra}
+Ez leginkább abban mutatkozik meg, hogy vannak olyan nélkülönözhetetlen fejlesztői gépek, amelyeknél
+azok létrehozási lépései elvesztek, illetve az idők során az azon végzett módosítások nem lettek
+megfelelően dokumentálva. Amennyiben ez a fejlesztés szempontjából egy kritikus gép, belátható, hogy
+az egy időzített bombaként viselkedik a rendszerben. Ennek a problémának egy tipikus áthidalása, ha
+az adott gépről létezik visszaállítható biztonsági mentés, hiszen ekkor egy jól működő állapotra
 visszaállhatunk, de az esetleges korszerűsítés (például frissebb operációs rendszerre való átállás)
 még problémákat jelenthet.
 
@@ -196,7 +204,6 @@ szabvánnyá vált. Legfrissebb változata a \emph{3.1 rev. 4}-es.
 \end{description}
 
 \subsection{Az egyes EAL szintek jelentései}
-\todo[inline]{Átfogalmazni az egyes pontokat}
 
 Az \emph{Evaluation Assurance Level} (továbbiakban: EAL) egy egytől hétig tartó skálán egyre nagyobb
 nyújt, pontosabban a magasabb szinteknél szigorúbb elvárásoknak kell megfelelni. A szigorúbb
@@ -205,10 +212,10 @@ szint meghatározásánál figyelembe kell venni, hogy milyen előnyökkel és k
 elérése.
 
 \subsubsection{EAL1 - funkcionálisan tesztelt}
-Ennek a szintnek az a célja, hogy a biztosítsuk azt, hogy a vizsgált termék funkcionalitása a
-biztosított dokumentációval összhangban legyen. Éppen ezért a kiértékelés során jellemzően annyi
-információt használunk fel, mint a termék egy vásárlója, ezáltal akár a vásárló is megbizonyosodhat
-a specifikáció betartásáról, a fejlesztőktől teljesen függetlenül.
+Ennek a szintnek az a célja, hogy a biztosítsuk azt, hogy a vizsgált termék funkcionalitása
+a biztosított dokumentációval összhangban legyen. Éppen ezért a kiértékelés során jellemzően annyi
+információt használunk fel, mint a termék egy felhasználója, ezáltal akár ő is megbizonyosodhat
+a funkcionális és interfészspecifikáció betartásáról, a fejlesztőktől teljesen függetlenül.
 
 Az esetleges biztonsági kockázatokat még nem tekintjük itt komolynak, és a biztonsági funkcionális
 követelményeket csupán deklaráljuk ahelyett, hogy azok feltételezések és fenyegetettségekből
@@ -219,24 +226,30 @@ Az előző szinthez képest már magasabb szintű biztosítást nyújtunk a szin
 hogy a dokumentációkban nyújtunk tervezési információt, és megosztjuk az egyes tesztek eredményeit.
 A biztosított dokumentációk területén annyi változás történt, hogy a specifikációnak itt már
 részletesebbnek kell lennie, tartalmaznia kell egy áttekintést a vizsgált termék architektúrájáról,
-továbbá demonstrációt, hogy a vizsgált termék képes ellenállni korlátozott kapacitású támadó ellen.
+teljes \emph{Security Target}-et, továbbá demonstrációt, hogy a vizsgált termék képes ellenállni
+korlátozott kapacitású támadó ellen.
 
 \subsubsection{EAL3 - módszeresen tesztelt és ellenőrzött}
+Az EAL3 célja, hogy úgy biztosítsa a lehető legmagasabb bizonyosságot, hogy a már meglévő
+fejlesztési szokásokat, módszereket ne változtassa meg nagy mértékben.
 Annak érdekében, hogy megérthessük a TOE biztonsági működését, a biztosított dokumentációnak
 tartalmaznia kell az előző szintnél részletesebb architekturális leírást TOE-ről.
 További előrelépést jelent az \emph{EAL2}-höz képest, hogy
 \begin{itemize}
-    \item a biztonsági funkcionalitást átfogóbban kell tesztelni, azaz ott a tesztlefedettségnek
+    \item a biztonsági funkcionalitást átfogóbban kell tesztelni, azaz ott a tesztek lefedettségnek
         nagyobbnak kell lennie, és
     \item olyan folyamatokat és szabályozókat kell bevezetni, amelyekkel minimalizálni tudjuk a
         termékfejlesztés közbeni szabotázs lehetőségét.
 \end{itemize}
 
 \subsubsection{EAL4 - módszeresen tervezett, tesztelt és lektorált}
+Az \emph{EAL4} az a legmagasabb elérendő szint, amely egy már meglévő termék esetén is még
+gazdaságos lehet, mivel a bevezetett módosítások jelentősen szigorítják a folyamatokat, de speciális
+tudást még nem igényel.
 
 Az \emph{EAL3}-hoz képest úgy növeli a bizonyosságot, hogy:
 \begin{itemize}
-    \item a TOE biztonsági funkcionalitásához kapcsolodó implementáció reprezentációját
+    \item a TOE biztonsági funkcionalitásához kapcsolódó implementáció reprezentációját
         (azaz a forráskódját) biztosítani kell,
     \item az előző szinten bevezetett szabotázst megakadályozó mechanizmusokat/folyamatokat
         fejleszteni kell, főként erősebb automatizálással,
@@ -244,31 +257,28 @@ Az \emph{EAL3}-hoz képest úgy növeli a bizonyosságot, hogy:
     \item az interfész specifikáltságának teljesnek kell lennie.
 \end{itemize}
 
-Általában az \emph{EAL4} szint az a legmagasabb elérendő szint, amely egy már meglévő termék esetén
-is még gazdaságos lehet, mivel habár szigorú, speciális tudást kevésbé igényel.
-
 \subsubsection{EAL5 - félformálisan tervezett és tesztelt}
 \begin{description}
     \item[félformális]{Olyan korlátozott szintaxisú nyelvezet, amelynél a szemantika előre
         definiált, például ilyen lehet az UML osztálydiagramja.}
 \end{description}
 
-Az \emph{EAL5} az \emph{EAL4}-hez képest az alábbi követelmények betartatásával növeli
+Az EAL5 az EAL4hez képest az alábbi követelmények betartatásával növeli
 a bizonyosságot:
 \begin{itemize}
     \item biztosítani kell a moduláris biztonsági funkciók terveit,
     \item olyan független sérülékenységi analízisre van szükség, amely képes demonstrálni a közepes
         kapacitású támadó elleni ellenállást,
-    \item átfogó 
+    \item széleskörű automatizációt és folyamatirányítást kell eszközölni.
 \end{itemize}
 
 \subsubsection{EAL6 - formálisan verifikált}
-Az \emph{EAL6} úgy növeli a bizonyosságot az \emph{EAL5}-höz képest, hogy megköveteli félformálisan
-leírt funkcionális specifikációt és TOE , a biztonsági funkcióknak nem csak modulárisnak, hanem
-\emph{egyszerűnek és réteges felépítésű}nek kell lennie, és a TOE biztonsági
-\todo[inline]{policy}-jának egy formális modellre kell épülnie.
-A további minőségbiztosítás érdekében strukturált fejlesztési folyamatra, és teljes automatizálásra
-van szükség.
+Az EAL6 célja olyan TOE létrehozása, amely képes nagyértékű információk védelmére olyan környezetben
+ahol a támadás kockázata szignifikáns.  Az \emph{EAL6} úgy növeli a bizonyosságot az \emph{EAL5}-höz
+képest, hogy megköveteli félformálisan leírt funkcionális specifikációt és TOE dizájnt, a biztonsági
+funkcióknak nem csak modulárisnak, hanem \emph{egyszerűnek és réteges felépítésű}nek kell lennie, és
+a TOE biztonsági policy-jának formális modellre kell épülnie. A további minőségbiztosítás érdekében
+strukturált fejlesztési folyamatra, és teljes automatizálásra van szükség.
 
 \subsubsection{EAL7 - formálisan verifikált dizájn}
 \begin{description}
@@ -276,6 +286,9 @@ van szükség.
         koncepciókon alapul.}
 \end{description}
 
-
-
+EAL7 elérése esetén olyan TOE-t kapunk, amely képes nagyértékű információ védelmére magas támadási
+kockázattal rendelkező környezetben is biztonsággal működni. Gyakorlatban EAL7-et az érhet el,
+amelynek a helyes működése formális eszközökkel is bizonyítható.
+Emellett úgy növeli még az EAL6-hoz képest a bizonyosságot, hogy ezen a szinten meg kell osztani
+a teljes implementációs reprezentációt (forráskódot) is.
 

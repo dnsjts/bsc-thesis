@@ -10,7 +10,8 @@ az a termékfejlesztés életciklusában előfordul.
 Az alábbi szekció a karbantartási folyamat azon részével foglalkozik, miszerint a felfedezett
 hibákat (különös tekintettel a biztonsági kockázatot hordozó hibákra) hogyan is kezeljük. A kezelés
 fogalmát jelenleg nem tudjuk pontosan meghatározni, ennek feloldása az egyes szinteken lesz
-szükséges.
+szükséges. A jelenlegi termékfejlesztési folyamatok kezelik a biztonsági hibákat, viszont nincsenek
+olyan védőhálók, amelyek az ilyen problémákat mindig szem előtt tartják.
 
 A kiértékelési komponens (ALC\_FLR osztály) szintezésére igaz, hogy a magasabb szinteken
 szigorúbbak a hibakezelési folyamatok, és az irányelvek.
@@ -51,7 +52,7 @@ elemeket máris teljesítettük ezt a pontot.
             users.}
         \item[ALC\_FLR.2.5C]{The flaw remediation procedures shall describe a means by which the
             developer receives from TOE users reports and enquiries of suspected security flaws in
-        the TOE.}
+            the TOE.}
         \item[ALC\_FLR.2.6C]{The procedures for processing reported security flaws shall ensure that
             any reported flaws are remediated and the remediation procedures issued to TOE users.}
         \item[ALC\_FLR.2.7C]{The procedures for processing reported security flaws shall provide
@@ -95,11 +96,21 @@ Az előző szinthez képes az alábbi szempontok adódtak hozzá a jelenlegi szi
             contact for all reports and enquiries about security issues involving the TOE.}
     \end{description}
 \end{quote}
-\todo[inline]{Célja a systematic flaw remediationnak.}
+Célja annyiban bővül a \emph{Systematic flaw remediation}-nek, hogy a felhasználó számára
+biztosított információk között szerepelnie kell annak is, hogy hogyan tudja önmagát regisztrálni
+a felhasználó annak érdekében, hogy a biztonsági javítások kiadásáról rövid idő alatt értesítést
+kapjon.
+
+Amennyiben elfogadjuk a JIRA-t, mint külső és belső hibajegykezelő eszköz, ennek a megvalósítása
+egyszerű, hiszen már beépített funkcionalitás az, hogy lehessen figyelni egy hibajegyet.
+
+
+
 
 \section{Fejlesztési- és karbantartási folyamatok (ALC\_LCD)}
-Ez a szekció megmutatja, hogy a jelenlegi, gyengén irányított folyamatainkat miért lenne előnyös
-magasabb szinten felügyelni, és milyen kezdeti lépések lennének megfelelőek ennek elérése irányában.
+Ez a szekció megmutatja, hogy a jelenlegi, gyengén irányított munkafolyamatainkat miért lenne
+előnyös magasabb szinten felügyelni, és milyen kezdeti lépések lennének megfelelőek ennek elérése
+irányában.
 
 A \emph{Common Criteria} szempontjából ez azért fontos kérdés, mivel ekkor a \emph{SFR-ek}
 megvalósulása egyáltalán nem garantált, amely nyilvánvalóan elfogadhatatlan, mivel azért (is)
@@ -112,14 +123,14 @@ idejét, amelyből következik, hogy olyan adminisztrációs eszközt használun
 automatizálást tesz lehetővé, és a nehezen automatizálható feladatok elvégzésére egy nagyon egyszerű
 felületet biztosít.
 
-\subsection{Jelenlegi folyamatok}
+\subsection{Jelenleg használt munkafolyamataink}
 A jelenlegi munkafolyamatokat az alábbi gráfok jellemzik, ahol az egyes csomópontok a fentebb
 említett állapotok közül lehetségesek, az élek pedig az engedélyezett átmeneteket jelentik.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth, height=0.4\textheight, keepaspectratio]{figures/oldfeature.png}
-    \caption{A jelenlegi, megengedő fejlesztési folyamat}
+    \caption{A \emph{syslog-ng} fejlesztéséhez jelenleg használt, megengedő folyamat}
     \label{fig:oldfeature}
 \end{figure}
 \FloatBarrier
@@ -128,7 +139,7 @@ említett állapotok közül lehetségesek, az élek pedig az engedélyezett át
 \begin{figure}[h]
     \includegraphics[width=\textwidth, height=0.4\textheight, keepaspectratio]{figures/oldmt.png}
     \centering
-    \caption{A jelenlegi, megengedő karbantartási folyamat}
+    \caption{A \emph{syslog-ng} karbantartásához jelenleg használt, megengedő folyamat}
     \label{fig:oldmt}
 \end{figure}
 
@@ -146,14 +157,14 @@ Első közelítésben érdemes korlátozni a lehetséges átmeneteket az alábbi
 \begin{figure}[h]
     \includegraphics[width=\textwidth, keepaspectratio]{figures/newfeature.png}
     \centering
-    \caption{Korlátozott fejlesztési folyamat}
+    \caption{A \emph{syslog-ng} fejlesztéséhez javasolt, szigorított folyamat}
     \label{fig:newfeature}
 \end{figure}
 
 \begin{figure}[h]
     \includegraphics[width=\textwidth, keepaspectratio]{figures/newmt.png}
     \centering
-    \caption{Korlátozott karbantartási folyamat}
+    \caption{A \emph{syslog-ng} karbantartásához javasolt, szigorított folyamat}
     \label{fig:newmt}
 \end{figure}
 
@@ -170,7 +181,7 @@ Az átmenetek létrehozásával lehetőségünk nyílt \emph{JIRA}-ban az egyes 
 \end{itemize}
 definiálni. Ez az eszköztár segíthet abban, hogy ne csupán lassítsuk a kritikus állapotok
 átugrásának kísérletét, de akár kényszeríthetjük, hogy más emberekkel együtt kelljen működnie ahhoz,
-hogy a szándékolt változtatást végrehajtsa. Feltétlezihetjük, hogy a belső támadó számára ez már
+hogy a szándékolt változtatást végrehajtsa. Feltételezhetjük, hogy a belső támadó számára ez már
 elég költséges és/vagy kockázatos ahhoz, hogy inkább más módszert keressen.
 
 Ez például megvalósítható úgy, hogy eltárolom azokat a fejlesztőket, akik létrehozták a megoldást
@@ -186,7 +197,8 @@ meghozni (átment-e a módosítás a teszteken, vagy sem), illetve nem kell isme
 hogy mielőtt a tesztelőknek odaadnám a módosításaimat, létre kell hoznom egy teljes
 telepítőcsomagot, ha a \emph{JIRA} rákérdez az átmenet végrehajtása előtt, hogy milyen elérési
 útvonalon találja meg a generált telepítőcsomagot. Ez a megközelítés gyakorlatilag
-a \emph{fail-fast} \cite{shore2004fail} szoftverfejlesztési technika folyamatokra vetített változata.
+a \emph{fail-fast} \cite{shore2004fail} szoftverfejlesztési technika folyamatokra vetített
+változata.
 
 \pagebreak[3]
 \section{Configuration Management}
@@ -225,7 +237,7 @@ nem definiáltuk, hogy konkrétabban milyen rendszerek alkotják a CM-et.  Mivel
 bináris, ezért a követésére egy \emph{binary repository manager}-re (vagy \emph{artifact
 repository}-ra) van szükségünk, de ezen a ponton akár felhasználhatjuk azt is, hogy a ZBS valahol
 belül rendezetten tárolja az egyes fordítások eredményeit, de egy független repository használata
-bölcsebb gondolatnak tűnik.  Az egyedi azonosításhoz használhatjuk a TOE egyedi cimkéjét, amelyet az
+bölcsebb gondolatnak tűnik.  Az egyedi azonosításhoz használhatjuk a TOE egyedi címkéjét, amelyet az
 3.3.2.1-es alszekcióban részletesebben kifejtjük.
 
 \pagebreak[3]
@@ -316,15 +328,15 @@ Az előző alosztályokhoz hasonlóan a szintek meghatározása az ellenőrzése
 \end{quote}
 
 Az \emph{EAL1} szint elérése ennél az alosztálynál egy egészen egyszerű feladatnak tűnik, hiszen
-csupán annyi a feladat, hogy a termék egy adott állapotát egy egyedi cimkével ellássuk, és mivel
-a verziószám készítése manapság elterjedt, ezért adódik, hogy legyen ez az egyedi cimkénk.
+csupán annyi a feladat, hogy a termék egy adott állapotát egy egyedi címkével ellássuk, és mivel
+a verziószám készítése manapság elterjedt, ezért adódik, hogy legyen ez az egyedi címkénk.
 
 Sajnos ez csak addig ennyire egyszerű, amíg nem jutunk el a kiadás létrehozásáig: vannak olyan
 teszteseteink (továbbiakban: \emph{Release teszt}), amelyek futtatása költséges, és/vagy különleges
 eszközökön kell azt futtatni. Ezt korábban úgy oldottuk fel, hogy az ilyen tesztek futtatását
 a kiadás létrehozásáig elodáztuk.  Amennyiben anomáliát észlelünk, a javítástól újraindítjuk
-a termékfejlesztés folyamatát, és \emph{a cimkét átmozgatjuk a javított állapotra}, amellyel azonnal
-megsérthetjük a cimkék egyediségének feltételét , ha az átmozgatás nem mindenütt történik meg,
+a termékfejlesztés folyamatát, és \emph{a címkét átmozgatjuk a javított állapotra}, amellyel azonnal
+megsérthetjük a címkék egyediségének feltételét , ha az átmozgatás nem mindenütt történik meg,
 továbbá ez a fejlesztők között is könnyedén félreérthetésekhez vezethet.
 
 Adódik a javaslat is, hogy külön jelöljük azokat a verziókat, amelyek eljutottak a Release tesztig,
