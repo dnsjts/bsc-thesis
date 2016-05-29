@@ -30,12 +30,12 @@ mint nap használunk.
     \item[JIRA] {Az Atlassian által fejlesztett, elsősorban hibajegyek kezelésére, és az agilis
         munkafolyamatok támogatására használatos szoftver. Esetünkben a \emph{VersionOne}-t váltotta
         le.}
-    \item[Zorp Build System (ZBS)] {A ZBS egy házon belül fejlesztett eszköz, célja a forráskódból
-        a telepíthető binárisok, csomagok előállítása, azaz elfedni a különböző platformok (CPU
-        architektúrák, futtató operációs rendszer, stb.) közötti fordítási és csomagolási
-        folyamatokban lévő különbségeket. Mivel vannak olyan támogatott platformok, amelyek
-        kevésbé szokványos hardvereket igényelnek, és egy ilyen gépen nem történhet párhuzamosan
-        több fordítás, ezért a ZBS-nek ezeket az erőforrásokat is kezelnie kell. }
+    \item[Zorp Build System (ZBS)] {A ZBS egy házon belül fejlesztett eszköz, melynek célja
+        a forráskódból a telepíthető binárisok, csomagok előállítása, azaz elfedni a különböző
+        platformok (CPU architektúrák, futtató operációs rendszer, stb.) közötti fordítási és
+        csomagolási folyamatokban lévő különbségeket. Mivel vannak olyan támogatott platformok, amelyek
+        kevésbé szokványos hardvereket igényelnek, és egy ilyen gépen nem történhet párhuzamosan több
+        fordítás, ezért a ZBS-nek ezeket az erőforrásokat is kezelnie kell. }
     \item[Zorp Test Suite (ZTS)] { A ZTS egy belső teszteléshez használt keretrendszer, amely
         ZBS-hez hasonlóan képes több platformon különféle teszteket végrehajtani. Mivel az egyes
         tesztesetek különleges infrastruktúrákat igényelhetnek, ezért a ZTS feladata az
@@ -50,7 +50,7 @@ mint nap használunk.
     \item[GitHub] {Habár egy egyszerű tárhelynek tűnhet csupán, mégis az általa adott
         többletszolgáltatások a közösség által fejlesztett syslog-ng központi elemévé tette.
         Ilyen többletszolgáltatás a \emph{forkok} könnyű kezelése, a beépített hibajegykezelő,
-        a \emph{pull request}-ek könnyű kezelése (azaz a GitHub-on lévő forkomból pár
+        a \emph{pull request}-ek könnyű kezelése (azaz a GitHub-on lévő forkból pár
         kattintással tudok kontribúciót küldeni az \emph{upstream repository}-ba), és a könnyű
         bővíthetősége, például lektorálást segítő eszközökkel, \emph{Continous Integration}-t
         megvalósító eszközökkel, statikus kódanalízist biztosító eszközökkel.
@@ -94,13 +94,13 @@ ember szűk keresztmetszetként viselkedik).
 Természetesen van ennél lényegesen rosszabban felépíthető belső eszköz is: nem találkoztam még olyan
 fejlesztővel, aki ne írt volna egy kis szkriptet saját munkájának gyorsítására. A probléma ott
 kezdődik, ha egy ilyen házilag barkácsolt szkriptet elkezdenek többen használni és ennek fejlesztése
-annak toldozgatásában ki is merül. Olykor előfordulhat olyan szerencsétlen együttállás is, hogy 
-az adott eszköz hibásan működik, de annak sem az elsődleges fejlesztője, sem annak tudása már nem
-elérhető. Egy ilyen együttállás jelentősen lassíthatja a munkafolyamatokat.
+annak toldozgatásában ki is merül. Olykor előfordulhat olyan szerencsétlen együttállás is, hogy az
+adott eszköz hibásan működik, de annak sem az elsődleges fejlesztője, sem annak fejlesztői ismerete
+már nem elérhető. Egy ilyen együttállás jelentősen lassíthatja a munkafolyamatokat.
 
 \subsubsection{Törékeny fejlesztési infrastruktúra}
-Ez leginkább abban mutatkozik meg, hogy vannak olyan nélkülönözhetetlen fejlesztői gépek, amelyeknél
-azok létrehozási lépései elvesztek, illetve az idők során az azon végzett módosítások nem lettek
+Ez leginkább abban mutatkozik meg, hogy vannak olyan nélkülönözhetetlen fejlesztői gépek, amelyek
+létrehozási lépései elvesztek, illetve az idők során a rajta végzett módosítások nem lettek
 megfelelően dokumentálva. Amennyiben ez a fejlesztés szempontjából egy kritikus gép, belátható, hogy
 az egy időzített bombaként viselkedik a rendszerben. Ennek a problémának egy tipikus áthidalása, ha
 az adott gépről létezik visszaállítható biztonsági mentés, hiszen ekkor egy jól működő állapotra
