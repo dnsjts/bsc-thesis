@@ -35,8 +35,9 @@ Ebben az alszekcióban szeretném bemutatni azokat a fontosabb eszközöket, ame
 mint nap használunk.
 
 \begin{description}
-    \item[JIRA] {Az Atlassian által fejlesztett, elsősorban hibajegyek kezelésére használatos
-        szoftver. Esetünkben a \emph{VersionOne}-t váltotta le.}
+    \item[JIRA] {Az Atlassian által fejlesztett, elsősorban hibajegyek kezelésére, és az agilis
+        munkafolyamatok támogatására használatos szoftver. Esetünkben a \emph{VersionOne}-t váltotta
+        le.}
     \item[Zorp Build System (ZBS)] {A ZBS egy házon belül fejlesztett eszköz, célja a forráskódból
         a telepíthető binárisok, csomagok előállítása, azaz elfedni a különböző platformok (CPU
         architektúrák, futtató operációs rendszer, stb.) közötti fordítási és csomagolási
@@ -44,7 +45,10 @@ mint nap használunk.
         kevésbé szokványos hardvereket igényelnek, és egy ilyen gépen nem történhet párhuzamosan
         több fordítás, ezért a ZBS-nek ezeket az erőforrásokat is kezelnie kell. }
     \item[Zorp Test Suite (ZTS)] { A ZTS egy belső teszteléshez használt keretrendszer, amely
-        képes arra, hogy a}
+        ZBS-hez hasonlóan képes több platformon különféle teszteket végrehajtani. Mivel az egyes
+        tesztesetek különleges infrastruktúrákat igényelhetnek, ezért a ZTS feladata az
+        infrastruktúra felépítése, és az infrastruktúra egyes elemeinek lefoglalása, tesztesetek
+        közötti újrahasznosítása.}
     \item[git] {A git már egy nagy múltra visszatekintő (először 2005-ben adták ki), eredetileg a
         Linux kernel fejlesztését segítő, elosztott verziókezelő rendszer. Elosztottságának
         köszönhetően a nyílt forráskódú szoftverek világában az egyik legnagyobb mértékben
@@ -82,21 +86,25 @@ volna azáltal, hogy a tabulálásokat (pontosabban fogalmazva \emph{indent}ál�
 volna.
 
 \subsubsection{Belső eszközök problémája}
-\begin{itemize}
-    \item Meredek tanulási görbe a belső eszközök használatánál.
-\end{itemize}
-, amelyből következik, hogy
-\begin{itemize}
-    \item a saját eszközök (főként: ZBS) belső működéséhez kevesen értenek.
-\end{itemize}
+Az egyik legnagyobb probléma (akár általánosságban is) a belső eszközökkel, hogy ezek mellékszálon
+készülnek el, ezért általában alacsonyabb szinten dokumentáltak, amiből következik, hogy meredek
+tanulási görbével rendelkeznek, amelyből pedig következik, hogy még kevesebben tudják csak
+fejleszteni, mert a fejlesztők a használók közül kerülnének kiválasztásra.
 Ezért ennek a területnek definíció szerint alacsony a \emph{busz faktor}a\footnote{\emph{busz
-    faktor:} egy (fejlesztő)csapaton belüli információ \emph{de}koncentráltságát jellemző mérőszám,
-    amely minél magasabb, annál jobb. Másképpen definiálva: legfejlebb hány ember veszíthető el úgy
+faktor:} egy (fejlesztő)csapaton belüli információ \emph{de}koncentráltságát jellemző mérőszám,
+amely minél magasabb, annál jobb. Másképpen definiálva: legfejlebb hány ember veszíthető el úgy
 a csapatból, hogy az még ne omoljon össze az egyedek elvesztéséből fakadó információveszteség miatt.
 A definíció és az elnevezés közötti kapcsolat felfedezését az Olvasóra bízom.}, amely hosszabb távon
 nézve kockázatos mind biztonsági (szélsőséges esetben egy ember ismer egy rendszert igazán, így az
 ő módosításainak lektorálása nem hatékony), mind termelékenységi szempontból (hiszen ilyenkor ez az
 ember szűk keresztmetszetként viselkedik).
+
+Természetesen van ennél lényegesen rosszabban felépíthető belső eszköz is: nem találkoztam még olyan
+fejlesztővel, aki ne írt volna egy kis szkriptet saját munkájának gyorsítására. A probléma ott
+kezdődik, ha egy ilyen házilag barkácsolt szkriptet elkezdenek többen használni és ennek fejlesztése
+annak toldozgatásában ki is merül. Olykor előfordulhat olyan szerencsétlen együttállás is, hogy 
+az adott eszköz hibásan működik, de annak sem az elsődleges fejlesztője, sem annak tudása már nem
+elérhető. Egy ilyen együttállás jelentősen lassíthatja a munkafolyamatokat.
 
 \subsubsection{Törékeny fejlesztési infrastruktúra}
 Ez leginkább abban mutatkozik meg, hogy vannak olyan nélkülönözhetetlen fejlesztői gépek, amelyeknél
@@ -145,7 +153,7 @@ mentén:
 \begin{figure}[h]
     \includegraphics[height=0.4\textheight]{figures/attacktrees.png}
     \centering
-    \caption{Példa }
+    \caption{Példa a felcímkézett Attack Trees használatára. \cite{schneier1999attack}}
 \end{figure}
 
 Az alábbi szempontok segíthetnek eldönteni, hogy megéri-e foglalkozni a védelem kialakításával,
@@ -159,16 +167,19 @@ alkalmazható, számunkra kevésbé használható, hiszen
     \item{a teljesség nem garantált.}
 \end{itemize}
 
+\FloatBarrier
 \subsection{Abuse/Misuse cases}
 
-Az \emph{Misuse cases} az ismert \emph{use case} diagramnak a kifordított változata, azaz ahelyett,
-hogy azt modelleznénk, hogy egy adott szereplő milyen tevékenységeket végezhet el, itt inkább azt
-modellezzük, hogy egy rosszindulatú szereplő milyen tevékenységeket végezne el, azaz
-meghatározhatjuk azokat a tevékenységeket, amelyeket a \emph{rendszernek tiltania kellene}.
+Az \emph{Misuse cases}\cite{alexander2003misuse} az ismert \emph{use case} diagramnak a kifordított
+változata, azaz ahelyett, hogy azt modelleznénk, hogy egy adott szereplő milyen tevékenységeket
+végezhet el, itt inkább azt modellezzük, hogy egy rosszindulatú szereplő milyen tevékenységeket
+végezne el, azaz meghatározhatjuk azokat a tevékenységeket, amelyeket a \emph{rendszernek tiltania
+kellene}.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\textwidth, height=0.5\textheight, keepaspectratio]{figures/misusecase.png}
+    \caption{Példa a misuse cases diagram használatára.}
 \end{figure}
 
 \FloatBarrier

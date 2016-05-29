@@ -251,7 +251,16 @@ bölcsebb gondolatnak tűnik.  Az egyedi azonosításhoz használhatjuk a TOE eg
     \end{description}
 \end{quote}
 
-\todo[inline]{Egyes pontok kifejtése}
+Ennek a követelménynek a megfogalmazása részben zavaros, ezért az \emph{Application notes} alapján
+a TOE részei alatt például az olyan alkalmazásokat kell érteni, amelyeket a felhasználónak is
+szállítunk. Esetünkben ilyen maga a \emph{syslog-ng} bináris, de beleértendőek a különböző
+debug információkat összegyűjtő eszközök, naplóbejegyzéseket tesztelési céllal előállító
+segédprogramok is. Ez a pont általában megvalósul az ALC\_CMS.1-gyel együtt, legalábbis első
+közelítéskor egyértelműnek tűnt, hogy ezt is követni kell, mert hatással van a TOE-ra.
+
+Az ALC\_CMS.2.3C-nél a ,,fejlesztőt'' úgy kell érteni, mint fejlesztő szervezetet, nem mint konkrét
+személyt. Ennek a teljesülése is természetes szokott lenni, hiszen a dependenciáinkat érdemes
+már csak a frissítések miatt is követni, ehhez pedig szükséges tudni azt, hogy ki is fejlesztette.
 
 \pagebreak[3]
 \subsubsection{ALC\_CMS.3 - Implementation representation CM coverage}
@@ -337,7 +346,7 @@ eszközökön kell azt futtatni. Ezt korábban úgy oldottuk fel, hogy az ilyen 
 a kiadás létrehozásáig elodáztuk.  Amennyiben anomáliát észlelünk, a javítástól újraindítjuk
 a termékfejlesztés folyamatát, és \emph{a címkét átmozgatjuk a javított állapotra}, amellyel azonnal
 megsérthetjük a címkék egyediségének feltételét , ha az átmozgatás nem mindenütt történik meg,
-továbbá ez a fejlesztők között is könnyedén félreérthetésekhez vezethet.
+továbbá ez a fejlesztők között is könnyedén félreértésekhez vezethet.
 
 Adódik a javaslat is, hogy külön jelöljük azokat a verziókat, amelyek eljutottak a Release tesztig,
 például a széles körben használt \emph{sorszámozott Release Candidate}, röviden \emph{rc}
@@ -367,9 +376,10 @@ Alternatív módszerek lehetnek az alábbiak:
         \item[ALC\_CMC.2.3C]{The CM system shall uniquely identify all configuration items.}
     \end{description}
 \end{quote}
-Belátható, hogy a \emph{git} verziókezelő rendszer széleskörű használata kezdetben megfelelő
-lehet CM rendszernek is.
-\todo[inline]{Miért jó a git?}
+Látszatra ennek a követelménynek nem sok jelentősége van, hiszen egy olyan rendszert használnánk,
+amely egyelőre nem követel meg semmit, csupán azt, hogy a követett elemei legyenek egyedileg
+azonosíthatóak. Ennek a pontnak sokkal inkább az a motivációja, hogy a komponensekre osztott TOE
+kezelését megalapozzuk.
 
 \pagebreak[1]
 \subsubsection{ALC\_CMC.3 - Authorisation controls}
@@ -461,20 +471,20 @@ A \emph{syslog-ng} közösség által fejlesztett változatánál a legnagyobb e
 szükséges feltételeinek dokumentálása, és az automatizálható ellenőrzések automatizálása.
 
 Van az ellenőrzéseknek egy olyan fajtája, amelyeket csak az újonnan beérkező kódra szeretnénk
-alkalmazni, mint például a kódstílus egységesítése automatikus formázók segítségével:
-mind annak azonnali alkalmazása, mind a stílusleíró változásával járó újraalkalmazás túl nagy
-különséget eredeményezne a formázás előtti és utáni kód között (ha például a jelenlegi \emph{master}
-ágon szeretném az összes \emph{C} nyelven írt forrásfájlt formázni, akkor az önmagában egy $16375$
-sor hozzáadásával és $15982$ sor törlésével járna). Ennek teljes körű szakmai lektorálása
-nehézkes az átnézendő kód mérete miatt, a lektorálatlan kódról pedig feltételeznünk kell, hogy
-kártékony módosításokat tartalmazhat, hiszen az esetek nagy részében a \emph{syslog-ng} \emph{root}
+alkalmazni, mint például a kódstílus egységesítése automatikus formázók segítségével: mind annak
+azonnali alkalmazása, mind a stílusleíró változásával járó újraalkalmazás túl nagy különbséget
+eredeményezne a formázás előtti és utáni kód között (ha például a jelenlegi \emph{master} ágon
+szeretném az összes \emph{C} nyelven írt forrásfájlt formázni, akkor az önmagában egy $16375$ sor
+hozzáadásával és $15982$ sor törlésével járna). Ennek teljes körű szakmai lektorálása nehézkes az
+átnézendő kód mérete miatt, a lektorálatlan kódról pedig feltételeznünk kell, hogy kártékony
+módosításokat tartalmazhat, hiszen az esetek nagy részében a \emph{syslog-ng} \emph{root}
 felhasználóként fut, akinek a jogköre már egészen széles szokott lenni ahhoz, hogy érdemes legyen
 megszemélyesíteni.
 
 Az ilyen transzformációk miatt felmerült egy olyan könnyűsúlyú (ezáltal CI rendszerbe integrálható)
 eszköz létrehozása, amely képes ellenőrzéseket és átalakításokat végrehajtani csak és kizárólag
 néhány kódmódosítási egységen (pontosabban az adott verziókezelő által atominak tekintett
-módosításokon, másnéven \emph{commit}-okon), míg a kódbázis maradékát érintetlenül hagyja.
+módosításokon, más néven \emph{commit}-okon), míg a kódbázis maradékát érintetlenül hagyja.
 Ellenőrzések esetén így megtalálhatjuk az első olyan \emph{commit}-ot, amely egy adott szempontból
 nem megfelelő, transzformációk esetén pedig \emph{commit}-ról \emph{commit}-ra tehetünk javaslatokat
 a javításra.
@@ -505,7 +515,32 @@ automatikusan el is fogadhatja, amellyel az \emph{ALC\_CMC.4.4C} pontját teljes
     \end{description}
 \end{quote}
 
-\todo[inline] {pontok kifejtése}
+Az előző pontban javasoltam, hogy az új kód integrálását végezze automata, melyből következik az is,
+hogy nem az fogadja el, aki fejlesztette, csupán azt kell figyelnie az automatának, hogy az egyes
+commit-okra adott ,,integrálható'' jelzéseket hagyja figyelmen kívül a commit szerzőjétől.
+
+A \emph{syslog-ng}-nél a változtatások auditálása a git alrendszerben tűnik egyedül megoldandó
+problémának, mivel habár támogatja az ALC\_CMC.5.9C-ben megfogalmazott metaadatok tárolását,
+egyúttal engedi azok tetszőleges módosítását is, tehát egy rosszindulatú fejlesztő képes gond nélkül
+másokat megszemélyesíteni. \cite{gerwitz2012agithorrorstory} Mint ahogy az a publikációból is
+látható, a megoldást az jelenti, ha az egyes commit-okat a szerző aláírja a \emph{GPG/PGP}
+kulcsaival, és ezt megköveteli az integrátor automata is. Ezt használva egy másik fejlesztő
+megszemélyesítéséhez annak kulcsait is el kell tulajdonítani, amelyről már feltételezhetjük, hogy
+nehéz megoldani.
+
+A dependenciák meghatározása ugyancsak a git-es alrendszerben tűnik fontosnak, ott viszont
+egyszerűen megoldható úgy, hogy adott egy szuperprojekt, amely magát a TOE-t reprezentálja, és
+az egyes függőségeket \emph{git submodule}-ként tárolja, ezáltal van hivatkozás a komponensek
+\emph{repository}-jára. Az, hogy a TOE-t létre kell-e újra hozni ekvivalens azzal, hogy bármelyik
+függő repository-ban történt-e változás, beleértve azt az esetet is, amikor függőség függősége
+változik.
+
+Ha az ALC\_CMC.1-et a \emph{git describe} által előállított címkével teljesítettük, akkor ebből
+meghatározni a forráskód verzióját könnyű, mivel annak az utolsó tagja maga a \emph{commitid}
+volt.
+
+A TOE Security Functionality-t tartalmazó konfigurációs elemek meghatározása valószínűleg kézzel
+szükséges, legalábbis legnagyobb sajnálatomra nem látom, hogy ezt hogyan lehet automatizálni.
 
 \pagebreak[2]
 \section{Termék leszállítása (ALC\_DEL)}
@@ -572,7 +607,3 @@ kritikus).
 Az, hogy az evaluált verzió kerüljön a felhasználóhoz, könnyedén megoldható akkor, ha a termék
 verziózása tényleg egyedi (lásd: ALC\_CMC.1), és a felhasználó ezt le tudja kérdezni, és össze
 tudja hasonlítani az evaluált verzióval.
-
-\section{Development Security}
-
-\todo[inline]{SecMan}
